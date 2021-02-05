@@ -194,13 +194,20 @@ def is_number(s):
     return False
 
 def ForteenthForm160():
-    checkname = input("Please Enter Your Name!\n")
+    checkCode = ""
+    for i in range(9):
+        checkNum = ((i + 1) ^ 2) % 10
+        checkCode += str(checkNum)
+    helloEnd(checkCode)
 
-    for _char in checkname:
-        if not is_number(_char):
-            print("Must all Numbers")
-            return
-    
+def FifteenForm160():
+    pass
+
+def SixteenForm160():
+    ForteenthForm160()
+
+def SeventeenForm160():
+    pass
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
