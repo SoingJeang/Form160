@@ -11,7 +11,7 @@ def secondFrom160():
     sierailcode = "AKA-" + str(0x17cfb * len(checkname) + ord(checkname[0]))
     helloEnd(sierailcode)
 
-# ((len(name) * 0x15b38 + name[0]) + 2) * 0x408 -0x40 - 0xc2e
+# ((len(name) * 0x15b38 + name[0]) + 2) * 0x408 a-0x40 - 0xc2e
 # 800145
 def thirdForm160():
     checkname = helloEnter()
@@ -177,8 +177,30 @@ def ThirdThenForm160():
     checkCode = str(int(var_90)) + "-" + str(int(var_178))
     helloEnd(checkCode) 
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+ 
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+ 
+    return False
+
 def ForteenthForm160():
-    pass
+    checkname = input("Please Enter Your Name!\n")
+
+    for _char in checkname:
+        if not is_number(_char):
+            print("Must all Numbers")
+            return
+    
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -192,7 +214,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    ThirdThenForm160()
+    ForteenthForm160()
 
 if __name__ == '__main__':
     main()
