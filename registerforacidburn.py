@@ -1,5 +1,6 @@
 import numpy
 import datetime
+import random
 
 def firstFrom160():
     checkname = helloEnter()
@@ -207,7 +208,26 @@ def SixteenForm160():
     ForteenthForm160()
 
 def SeventeenForm160():
-    pass
+    numLen = random.randint(5,10)
+    firstLen = 0
+    while(True):
+        checkCode = ""
+        for i in range(numLen - 1):
+            char = random.randint(0,9)
+            if i == 0:
+                firstLen = (char + 0x30) * numLen
+            firstLen = firstLen - char - 0x30
+            checkCode += str(char)
+        if (firstLen >= 0x30 and firstLen <= 0x39):
+            checkCode += chr(firstLen)
+            break
+    print(checkCode)
+        
+    
+            
+
+
+
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -221,7 +241,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    ForteenthForm160()
+    SeventeenForm160()
 
 if __name__ == '__main__':
     main()
