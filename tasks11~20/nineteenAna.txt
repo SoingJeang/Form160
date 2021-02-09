@@ -1,0 +1,26 @@
+.text:004015D8 loopCompare:
+.text:004015D8                 mov     ecx, [ebp+Index] //
+.text:004015DB                 push    ecx
+.text:004015DC                 lea     ecx, [ebp+strName]
+.text:004015DF                 call    GetCharater_Index_
+.text:004015E4                 movsx   edx, al           // ascii
+.text:004015E7                 mov     eax, [ebp+var_10] // 0x81276345
+.text:004015EA                 add     eax, edx
+.text:004015EC                 mov     [ebp+var_10], eax // var_10 += str(index)
+.text:004015EF                 mov     ecx, [ebp+Index]
+.text:004015F2                 shl     ecx, 8            // left 8
+.text:004015F5                 mov     edx, [ebp+var_10]
+.text:004015F8                 xor     edx, ecx
+.text:004015FA                 mov     [ebp+var_10], edx // var_10 ^= (index << 8)
+.text:004015FD                 mov     eax, [ebp+Index]
+.text:00401600                 add     eax, 1
+.text:00401603                 mov     ecx, [ebp+const_len]
+.text:00401606                 imul    ecx, [ebp+Index]  // len * index
+.text:0040160A                 not     ecx
+.text:0040160C                 imul    eax, ecx          // -len * index * (index + 1)
+.text:0040160F                 mov     edx, [ebp+var_10]
+.text:00401612                 imul    edx, eax          // -len * index * (index + 1) * var_10
+.text:00401615                 mov     [ebp+var_10], edx // var_10 *= -len * index * (index + 1)
+.text:00401618                 jmp     short loc_4015C7
+.text:0040161A ; ---------------------------------------------------------------------------
+.text:0040161A
