@@ -223,7 +223,29 @@ def SeventeenForm160():
             break
     print(checkCode)
         
+def EighteenForm160():
+    checkCode = "<BrD-SoB>"
+    helloEnd(checkCode)
+
+def NineteenForm160():
+    nCheck = 0x81276345
     
+    checkName = helloEnter()
+    if (len(checkName) < 5):
+        print("name must than 4")
+        return
+        
+    nCheckLen = len(checkName)
+    nIndex = 0
+    for _char in checkName:
+        nCheck += ord(_char)
+        nCheck ^= (nIndex << 8)
+    
+        nCheck = (~(nCheckLen * nIndex)) * (nIndex + 1) * nCheck
+        nCheck &= 0xffffffff
+        nIndex += 1
+
+    helloEnd(nCheck)
             
 
 
@@ -241,7 +263,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    SeventeenForm160()
+    NineteenForm160()
 
 if __name__ == '__main__':
     main()
