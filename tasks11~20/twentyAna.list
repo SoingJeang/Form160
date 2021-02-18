@@ -1,0 +1,91 @@
+Unit1.TForm1.Button1Click
+0044A2E8        push        ebp
+0044A2E9        mov         ebp,esp
+0044A2EB        xor         ecx,ecx
+0044A2ED        push        ecx
+0044A2EE        push        ecx
+0044A2EF        push        ecx
+0044A2F0        push        ecx
+0044A2F1        push        ebx
+0044A2F2        push        esi
+0044A2F3        mov         ebx,eax
+0044A2F5        xor         eax,eax
+0044A2F7        push        ebp
+0044A2F8        push        44A3E4
+0044A2FD        push        dword ptr fs:[eax]
+0044A300        mov         dword ptr fs:[eax],esp
+0044A303        lea         edx,[ebp-4]
+0044A306        mov         eax,dword ptr [ebx+2C8];TForm1.Edit2:TEdit
+0044A30C        call        TControl.GetText        ; Serial
+0044A311        mov         eax,dword ptr [ebp-4]
+0044A314        call        StrToInt
+0044A319        mov         esi,eax
+0044A31B        mov         eax,dword ptr [ebp-4]
+0044A31E        call        StrToInt64
+0044A323        push        edx
+0044A324        push        eax
+0044A325        mov         eax,esi
+0044A327        cdq
+0044A328        add         eax,dword ptr [esp]     ;+ int64(serial)
+0044A32B        adc         edx,dword ptr [esp+4]
+0044A32F        add         esp,8
+0044A332        push        edx
+0044A333        push        eax
+0044A334        mov         eax,esi
+0044A336        cdq
+0044A337        add         eax,dword ptr [esp]     ;+ int64(serial)
+0044A33A        adc         edx,dword ptr [esp+4]
+0044A33E        add         esp,8
+0044A341        push        edx
+0044A342        push        eax
+0044A343        lea         edx,[ebp-8]
+0044A346        mov         eax,6
+0044A34B        call        IntToHex
+0044A350        mov         edx,dword ptr [ebp-8]
+0044A353        mov         eax,dword ptr [ebx+2CC];TForm1.Edit3:TEdit
+0044A359        call        TControl.SetText           ; Set
+0044A35E        lea         edx,[ebp-0C]
+0044A361        mov         eax,dword ptr [ebx+2CC];TForm1.Edit3:TEdit
+0044A367        call        TControl.GetText            ; Get
+0044A36C        mov         eax,dword ptr [ebp-0C]
+0044A36F        push        eax
+0044A370        lea         edx,[ebp-10]
+0044A373        mov         eax,dword ptr [ebx+2F0];TForm1.Label1:TLabel
+0044A379        call        TControl.GetText
+0044A37E        mov         edx,dword ptr [ebp-10]
+0044A381        pop         eax
+0044A382        call        @LStrCmp    // cmpare with label1's Text
+0044A387>       jne         0044A398
+0044A389        mov         dl,1
+0044A38B        mov         eax,dword ptr [ebx+2FC];TForm1.Label2:TLabel
+0044A391        call        TControl.SetVisible
+0044A396>       jmp         0044A3A9
+0044A398        mov         eax,dword ptr [ebx+2D4];TForm1.Label6:TLabel
+0044A39E        mov         edx,dword ptr [eax+34];TLabel.Top:Integer
+0044A3A1        sub         edx,0A
+0044A3A4        call        TControl.SetTop
+0044A3A9        mov         eax,dword ptr [ebx+2D4];TForm1.Label6:TLabel
+0044A3AF        cmp         dword ptr [eax+34],32;TLabel.Top:Integer
+0044A3B3>       jge         0044A3BC
+0044A3B5        mov         eax,ebx
+0044A3B7        call        TCustomForm.Close
+0044A3BC        xor         eax,eax
+0044A3BE        pop         edx
+0044A3BF        pop         ecx
+0044A3C0        pop         ecx
+0044A3C1        mov         dword ptr fs:[eax],edx
+0044A3C4        push        44A3EB
+0044A3C9        lea         eax,[ebp-10]
+0044A3CC        mov         edx,2
+0044A3D1        call        @LStrArrayClr
+0044A3D6        lea         eax,[ebp-8]
+0044A3D9        mov         edx,2
+0044A3DE        call        @LStrArrayClr
+0044A3E3        ret
+0044A3E4>       jmp         @HandleFinally
+0044A3E9>       jmp         0044A3C9
+0044A3EB        pop         esi
+0044A3EC        pop         ebx
+0044A3ED        mov         esp,ebp
+0044A3EF        pop         ebp
+0044A3F0        ret

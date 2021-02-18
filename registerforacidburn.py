@@ -247,8 +247,10 @@ def NineteenForm160():
 
     helloEnd(nCheck)
             
-
-
+def twentythForm160():
+    checkCode = 0x3E74984B
+    EnterNum = checkCode / 3
+    helloEnd(int(EnterNum))
 
 
 def helloEnter():
@@ -263,7 +265,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    NineteenForm160()
+    twentythForm160()
 
 if __name__ == '__main__':
     main()
