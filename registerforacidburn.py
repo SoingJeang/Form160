@@ -298,6 +298,25 @@ def twentySecondFrom160():
         strCaption[165:166] + strCaption[167:168] 
     print(retVar)
 
+def twentyThirdFrom160():
+    keyCheck = 0xF6EEDB88
+    checkName = "1" #helloEnter() 
+    #checkName[::-1]
+
+    lenCheckName = len(checkName)
+    listCheckName = list(checkName)
+    for i in range(0x10):
+        xorPara = 0
+        for j in range(4):    
+            if(i+3-j < lenCheckName):
+                xorPara = (xorPara << 8)
+                xorPara += ord(listCheckName[i+(3-j)])
+        keyCheck ^= xorPara
+        keyCheck -= 1
+    print(keyCheck)
+
+#123456789abcdefg000
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -310,7 +329,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    twentySecondFrom160()
+    twentyThirdFrom160()
 
 if __name__ == '__main__':
     main()
