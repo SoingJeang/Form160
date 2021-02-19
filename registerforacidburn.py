@@ -252,8 +252,6 @@ def twentythForm160():
     EnterNum = checkCode / 3
     helloEnd(int(EnterNum))
 
-
-
 def twentyfirstFrom160():
     dicParam1 = {
         "a":0x427, "b":0x6BC, "c":0x491, "d":0x474D, "e":0x400, "f":0x6D0,
@@ -293,6 +291,13 @@ def twentyfirstFrom160():
     helloEnd(param1)
     helloEnd(param2)
 
+def twentySecondFrom160():
+    strCaption = "bPe CrackMe   v1.0                                                                                                                           This CrackMe it's to trainer your VB cracking ability                                                                                                                           Developed by CarLitoZ"
+    retVar = strCaption[5:6] + strCaption[8:9] + strCaption[142:143] + \
+        strCaption[15:16] + strCaption[160:161] + strCaption[170:171] + \
+        strCaption[165:166] + strCaption[167:168] 
+    print(retVar)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -305,7 +310,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    twentyfirstFrom160()
+    twentySecondFrom160()
 
 if __name__ == '__main__':
     main()

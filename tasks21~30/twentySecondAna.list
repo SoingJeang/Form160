@@ -1,0 +1,66 @@
+Private Sub reg_Click() '402D20
+  Dim Me As Me
+  Dim var_1C As Variant
+  loc_00402D7E: var_eax = Crack.rgr
+  loc_00402DD5: var_74 = "CrackMe v1.0"
+  loc_00402DE9: If (Me.SaveProp = 1) = 0 Then GoTo loc_00402F49 ; 不等于1则死 
+  loc_00402DEF: var_3C = "CrackMe v1.0"
+  loc_00402E05: var_2C = "Registration Successful"
+  loc_00402E4E: Open %x1 = CInt("c:\windows\MTR.dat") For Binary As #%x1 = CInt("c:\windows\MTR.dat") Len = -1
+  loc_00402E72: Put #%x1 = CInt(), 45, "trv2156j0e"
+  loc_00402E82: Me = %x1 = CInt()
+  loc_00402E89: Close #Me
+  loc_00402E9B: Set var_1C = Close #Me
+  loc_00402EAB: info.Caption = "REGISTERED"
+  loc_00402ED6: Set var_1C = var_1C
+  loc_00402EE3: reg.Enabled = False
+  loc_00402F16: Set var_1C = var_1C
+  loc_00402F23: Text.Enabled = False
+  loc_00402F44: GoTo loc_00402FD5
+  loc_00402F51: var_64 = " Wrong Code! Try Again"
+  loc_00402FA0: Set var_1C = var_3C
+  loc_00402FB0: Text.Text = global_0040235C
+  loc_00402FD5: 'Referenced from: 00402F44
+  loc_00402FE1: GoTo loc_00403011
+  loc_00403010: Exit Sub
+  loc_00403011: 'Referenced from: 00402FE1
+End Sub
+
+Public Sub rgr() '403230
+  Dim Me As Me
+  Dim var_3C As Label
+  loc_004033A9: var_1C = abt.Label1.Caption
+  loc_004033F6: var_20 = abt.Label1.Caption
+  loc_00403443: var_24 = abt.Label1.Caption
+  loc_00403490: var_28 = abt.Label1.Caption
+  loc_004034DD: var_2C = abt.Label1.Caption
+  loc_0040352A: var_30 = abt.Label1.Caption
+  loc_00403577: var_34 = abt.Label1.Caption
+  loc_004035C4: var_38 = abt.Label1.Caption
+  loc_004035E4: var_eax = Unknown_VTable_Call[ecx+00000308h]
+  loc_004035EF: Set var_3C = Unknown_VTable_Call[ecx+00000308h]
+  loc_004035FA: var_18 = abt.Label1.MousePointer                ; label Text
+  loc_0040361F: var_254 = var_18
+  loc_0040362B: var_64 = var_1C
+  loc_0040366D: var_94 = var_20
+  loc_004036AC: var_D4 = var_24
+  loc_004036EE: var_114 = var_28
+  loc_0040372D: var_154 = var_2C
+  loc_0040377C: var_194 = var_30
+  loc_004037B1: var_1D4 = var_34
+  loc_004037F3: var_214 = var_38
+  loc_0040384E: var_ret_1 = Mid(var_1C, 6, 1) + Mid(var_20, 9, 1)
+  loc_0040385F: var_ret_2 = var_ret_1 + Mid(var_24, 143, 1)
+  loc_00403870: var_ret_3 = var_ret_2 + Mid(var_28, 16, 1)
+  loc_00403881: var_ret_4 = var_ret_3 + Mid(var_2C, 161, 1)
+  loc_00403892: var_ret_5 = var_ret_4 + Mid(var_30, 171, 1)
+  loc_004038A3: var_ret_6 = var_ret_5 + Mid(var_34, 166, 1)
+  loc_004038B4: var_ret_7 = var_ret_6 + Mid(var_38, 168, 1)
+  loc_004039D9: If (var_18 = var_ret_7) = 0 Then GoTo loc_004039FD
+  loc_004039F7: Me(14) = CInt(1)
+  loc_004039FD: 'Referenced from: 004039D9
+  loc_00403A02: GoTo loc_00403B55
+  loc_00403B54: Exit Sub
+  loc_00403B55: 'Referenced from: 00403A02
+End Sub
+
