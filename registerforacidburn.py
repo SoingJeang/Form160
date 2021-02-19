@@ -253,6 +253,46 @@ def twentythForm160():
     helloEnd(int(EnterNum))
 
 
+
+def twentyfirstFrom160():
+    dicParam1 = {
+        "a":0x427, "b":0x6BC, "c":0x491, "d":0x474D, "e":0x400, "f":0x6D0,
+        "g":0x67D, "h":0x750, "i":0x43C, "j":0x764, "k":0xC0, "l":0x277D,
+        "m":0x81E, "n":0xE07, "o":0x8E, "p":0x9A670, "q":0xD57, "r":0x5FEB,
+        "s":0x8B0, "t":0x4BB, "u":0x8C2, "v":0x1CA6, "w":0x395, "x":0x251E,
+        "y":0x2D13, "z":0x1900, 
+        "A":0x428, "B":0xB1630, "C":0xD86, "D":0x11A4, "E":0x11F0A, "F":0x3CC2,
+        "G":0x3E1A8, "H":0x91E4, "I":0x6B42, "J":0x516A4, "K":0x4345A, "L":0x1BFDD9,
+        "M":0x286D, "N":0x401, "O":0x674, "P":0x9C, "Q":0x156, "R":0x8627,
+        "S":0x748190, "T":0xA568, "U":0x15592, "V":0x1DD9, "W":0x266A, "X":0x3CC0,
+        "Y":0x8311, "Z":0xCE1B, 
+    }
+    dicParam2 = {
+        "a":0x79, "b":0x6F, "c":0x2E2, "d":0x2FA, "e":0xE, "f":0xD,
+        "g":0xC, "h":0xB, "i":0x63, "j":0x378, "k":0x4D, "l":0x22B,
+        "m":0x5A, "n":0x62, "o":0x1D2C, "p":0x8C7F3, "q":0x288, "r":0x21A,
+        "s":0x1, "t":0x40, "u":0x4B, "v":0x4E, "w":0x26, "x":0x5,
+        "y":0x8, "z":0x1C8, 
+        "A":0x1610, "B":0x2, "C":0x270F, "D":0x46FF33C, "E":0x8B3C, "F":0x8618,
+        "G":0x6C81C, "H":0x27E945, "I":0x2FC7C3, "J":0xB8F47C, "K":0x115C7, "L":0x12B54,
+        "M":0xB348C, "N":0x357CE174, "O":0x317CD7, "P":0x7DD834, "Q":0x39CD0, "R":0xBF44A,
+        "S":0x854686, "T":0x13220, "U":0x302E, "V":0x1C43, "W":0x2BA96C08, "X":0x4EFC8,
+        "Y":0x1C46, "Z":0xB1664, 
+    }
+
+    checkName = helloEnter()    
+    param1 = 0
+    param2 = 0
+    for _char in checkName:
+        param1 += dicParam1[_char]
+        param2 += dicParam2[_char]
+
+    if(param1 == 0 or param2 == 0):
+            print("Can't All Num")
+    
+    helloEnd(param1)
+    helloEnd(param2)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -265,7 +305,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    twentythForm160()
+    twentyfirstFrom160()
 
 if __name__ == '__main__':
     main()

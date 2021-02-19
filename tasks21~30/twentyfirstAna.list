@@ -1,0 +1,300 @@
+Edit1.Enter
+0042CF98   > \8105 14F74200>add dword ptr ds:[0x42F714],0x427        ;  Case 61 of switch 0042CE34 a
+0042CFA2   .  8305 18F74200>add dword ptr ds:[0x42F718],0x79
+0042CFA9   .  C3            retn
+0042CFAA   >  8105 14F74200>add dword ptr ds:[0x42F714],0x6BC        ;  Case 62 of switch 0042CE34
+0042CFB4   .  8305 18F74200>add dword ptr ds:[0x42F718],0x6F
+0042CFBB   .  C3            retn
+0042CFBC   >  8105 14F74200>add dword ptr ds:[0x42F714],0x491        ;  Case 63 of switch 0042CE34
+0042CFC6   .  8105 18F74200>add dword ptr ds:[0x42F718],0x2E2
+0042CFD0   .  C3            retn
+0042CFD1   >  8105 14F74200>add dword ptr ds:[0x42F714],0x474D       ;  Case 64 of switch 0042CE34
+0042CFDB   .  8105 18F74200>add dword ptr ds:[0x42F718],0x2FA
+0042CFE5   .  C3            retn
+0042CFE6   >  8105 14F74200>add dword ptr ds:[0x42F714],0x400        ;  Case 65 of switch 0042CE34
+0042CFF0   .  8305 18F74200>add dword ptr ds:[0x42F718],0xE
+0042CFF7   .  C3            retn
+0042CFF8   >  8105 14F74200>add dword ptr ds:[0x42F714],0x6D0        ;  Case 66 of switch 0042CE34
+0042D002   .  8305 18F74200>add dword ptr ds:[0x42F718],0xD
+0042D009   .  C3            retn
+0042D00A   >  8105 14F74200>add dword ptr ds:[0x42F714],0x67D        ;  Case 67 of switch 0042CE34
+0042D014   .  8305 18F74200>add dword ptr ds:[0x42F718],0xC
+0042D01B   .  C3            retn
+0042D01C   >  8105 14F74200>add dword ptr ds:[0x42F714],0x750        ;  Case 68 of switch 0042CE34
+0042D026   .  8305 18F74200>add dword ptr ds:[0x42F718],0xB
+0042D02D   .  C3            retn
+0042D02E   >  8105 14F74200>add dword ptr ds:[0x42F714],0x43C        ;  Case 69 of switch 0042CE34
+0042D038   .  8305 18F74200>add dword ptr ds:[0x42F718],0x63
+0042D03F   .  C3            retn
+0042D040   >  8105 14F74200>add dword ptr ds:[0x42F714],0x764        ;  Case 6A of switch 0042CE34
+0042D04A   .  8105 18F74200>add dword ptr ds:[0x42F718],0x378
+0042D054   .  C3            retn
+0042D055   >  8105 14F74200>add dword ptr ds:[0x42F714],0xC0         ;  Case 6B of switch 0042CE34
+0042D05F   .  8305 18F74200>add dword ptr ds:[0x42F718],0x4D
+0042D066   .  C3            retn
+0042D067   >  8105 14F74200>add dword ptr ds:[0x42F714],0x277D       ;  Case 6C of switch 0042CE34
+0042D071   .  8105 18F74200>add dword ptr ds:[0x42F718],0x22B
+0042D07B   .  C3            retn
+0042D07C   >  8105 14F74200>add dword ptr ds:[0x42F714],0x81E        ;  Case 6D of switch 0042CE34
+0042D086   .  8305 18F74200>add dword ptr ds:[0x42F718],0x5A
+0042D08D   .  C3            retn
+0042D08E   >  8105 14F74200>add dword ptr ds:[0x42F714],0xE07        ;  Case 6E of switch 0042CE34
+0042D098   .  8305 18F74200>add dword ptr ds:[0x42F718],0x62
+0042D09F   .  C3            retn
+0042D0A0   >  8105 14F74200>add dword ptr ds:[0x42F714],0x8E         ;  Case 6F of switch 0042CE34
+0042D0AA   .  8105 18F74200>add dword ptr ds:[0x42F718],0x1D2C
+0042D0B4   .  C3            retn
+0042D0B5   >  8105 14F74200>add dword ptr ds:[0x42F714],0x9A670      ;  Case 70 of switch 0042CE34
+0042D0BF   .  8105 18F74200>add dword ptr ds:[0x42F718],0x8C7F3
+0042D0C9   .  C3            retn
+0042D0CA   >  8105 14F74200>add dword ptr ds:[0x42F714],0xD57        ;  Case 71 of switch 0042CE34
+0042D0D4   .  8105 18F74200>add dword ptr ds:[0x42F718],0x288
+0042D0DE   .  C3            retn
+0042D0DF   >  8105 14F74200>add dword ptr ds:[0x42F714],0x5FEB       ;  Case 72 of switch 0042CE34
+0042D0E9   .  8105 18F74200>add dword ptr ds:[0x42F718],0x21A
+0042D0F3   .  C3            retn
+0042D0F4   >  8105 14F74200>add dword ptr ds:[0x42F714],0x8B0        ;  Case 73 of switch 0042CE34
+0042D0FE   .  FF05 18F74200 inc dword ptr ds:[0x42F718]
+0042D104   .  C3            retn
+0042D105   >  8105 14F74200>add dword ptr ds:[0x42F714],0x4BB        ;  Case 74 of switch 0042CE34
+0042D10F   .  8305 18F74200>add dword ptr ds:[0x42F718],0x40
+0042D116   .  C3            retn
+0042D117   >  8105 14F74200>add dword ptr ds:[0x42F714],0x8C2        ;  Case 75 of switch 0042CE34
+0042D121   .  8305 18F74200>add dword ptr ds:[0x42F718],0x4B
+0042D128   .  C3            retn
+0042D129   >  8105 14F74200>add dword ptr ds:[0x42F714],0x1CA6       ;  Case 76 of switch 0042CE34
+0042D133   .  8305 18F74200>add dword ptr ds:[0x42F718],0x4E
+0042D13A   .  C3            retn
+0042D13B   >  8105 14F74200>add dword ptr ds:[0x42F714],0x395        ;  Case 78 of switch 0042CE34
+0042D145   .  8305 18F74200>add dword ptr ds:[0x42F718],0x26
+0042D14C   .  C3            retn
+0042D14D   >  8105 14F74200>add dword ptr ds:[0x42F714],0x251E       ;  Case 77 of switch 0042CE34
+0042D157   .  8305 18F74200>add dword ptr ds:[0x42F718],0x5
+0042D15E   .  C3            retn
+0042D15F   >  8105 14F74200>add dword ptr ds:[0x42F714],0x2D13       ;  Case 79 of switch 0042CE34
+0042D169   .  8305 18F74200>add dword ptr ds:[0x42F718],0x8
+0042D170   .  C3            retn
+0042D171   >  8105 14F74200>add dword ptr ds:[0x42F714],0x1900       ;  Case 7A of switch 0042CE34 z
+0042D17B   .  8105 18F74200>add dword ptr ds:[0x42F718],0x1C8
+0042D185   .  C3            retn
+0042D186   >  8105 14F74200>add dword ptr ds:[0x42F714],0x428        ;  Case 41 of switch 0042CE34 A
+0042D190   .  8105 18F74200>add dword ptr ds:[0x42F718],0x1610
+0042D19A   .  C3            retn
+0042D19B   >  8105 14F74200>add dword ptr ds:[0x42F714],0xB1630      ;  Case 42 of switch 0042CE34
+0042D1A5   .  8305 18F74200>add dword ptr ds:[0x42F718],0x2
+0042D1AC   .  C3            retn
+0042D1AD   >  8105 14F74200>add dword ptr ds:[0x42F714],0xD86        ;  Case 43 of switch 0042CE34
+0042D1B7   .  8105 18F74200>add dword ptr ds:[0x42F718],0x270F
+0042D1C1   .  C3            retn
+0042D1C2   >  8105 14F74200>add dword ptr ds:[0x42F714],0x11A4       ;  Case 44 of switch 0042CE34
+0042D1CC   .  8105 18F74200>add dword ptr ds:[0x42F718],0x46FF33C
+0042D1D6   .  C3            retn
+0042D1D7   >  8105 14F74200>add dword ptr ds:[0x42F714],0x11F0A      ;  ASCII "铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪铪"; Case 45 of switch 0042CE34
+0042D1E1   .  8105 18F74200>add dword ptr ds:[0x42F718],0x8B3C
+0042D1EB   .  C3            retn
+0042D1EC   >  8105 14F74200>add dword ptr ds:[0x42F714],0x3CC2       ;  Case 46 of switch 0042CE34
+0042D1F6   .  8105 18F74200>add dword ptr ds:[0x42F718],0x8618
+0042D200   .  C3            retn
+0042D201   >  8105 14F74200>add dword ptr ds:[0x42F714],0x3E1A8      ;  Case 47 of switch 0042CE34
+0042D20B   .  8105 18F74200>add dword ptr ds:[0x42F718],0x6C81C
+0042D215   .  C3            retn
+0042D216   >  8105 14F74200>add dword ptr ds:[0x42F714],0x91E4       ;  Case 48 of switch 0042CE34
+0042D220   .  8105 18F74200>add dword ptr ds:[0x42F718],0x27E945
+0042D22A   .  C3            retn
+0042D22B   >  8105 14F74200>add dword ptr ds:[0x42F714],0x6B42       ;  Case 49 of switch 0042CE34
+0042D235   .  8105 18F74200>add dword ptr ds:[0x42F718],0x2FC7C3
+0042D23F   .  C3            retn
+0042D240   >  8105 14F74200>add dword ptr ds:[0x42F714],0x516A4      ;  Case 4A of switch 0042CE34
+0042D24A   .  8105 18F74200>add dword ptr ds:[0x42F718],0xB8F47C
+0042D254   .  C3            retn
+0042D255   >  8105 14F74200>add dword ptr ds:[0x42F714],0x4345A      ;  Case 4B of switch 0042CE34
+0042D25F   .  8105 18F74200>add dword ptr ds:[0x42F718],0x115C7
+0042D269   .  C3            retn
+0042D26A   >  8105 14F74200>add dword ptr ds:[0x42F714],0x1BFDD9     ;  Case 4C of switch 0042CE34
+0042D274   .  8105 18F74200>add dword ptr ds:[0x42F718],0x12B54
+0042D27E   .  C3            retn
+0042D27F   >  8105 14F74200>add dword ptr ds:[0x42F714],0x286D       ;  Case 4D of switch 0042CE34
+0042D289   .  8105 18F74200>add dword ptr ds:[0x42F718],0xB348C
+0042D293   .  C3            retn
+0042D294   >  8105 14F74200>add dword ptr ds:[0x42F714],0x401        ;  Case 4E of switch 0042CE34
+0042D29E   .  8105 18F74200>add dword ptr ds:[0x42F718],0x357CE174
+0042D2A8   .  C3            retn
+0042D2A9   >  8105 14F74200>add dword ptr ds:[0x42F714],0x674        ;  Case 4F of switch 0042CE34
+0042D2B3   .  8105 18F74200>add dword ptr ds:[0x42F718],0x317CD7
+0042D2BD   .  C3            retn
+0042D2BE   >  8105 14F74200>add dword ptr ds:[0x42F714],0x9C         ;  Case 50 of switch 0042CE34
+0042D2C8   .  8105 18F74200>add dword ptr ds:[0x42F718],0x7DD834
+0042D2D2   .  C3            retn
+0042D2D3   >  8105 14F74200>add dword ptr ds:[0x42F714],0x156        ;  Case 51 of switch 0042CE34
+0042D2DD   .  8105 18F74200>add dword ptr ds:[0x42F718],0x39CD0
+0042D2E7   .  C3            retn
+0042D2E8   >  8105 14F74200>add dword ptr ds:[0x42F714],0x8627       ;  Case 52 of switch 0042CE34
+0042D2F2   .  8105 18F74200>add dword ptr ds:[0x42F718],0xBF44A
+0042D2FC   .  C3            retn
+0042D2FD   >  8105 14F74200>add dword ptr ds:[0x42F714],0x748190     ;  Case 53 of switch 0042CE34
+0042D307   .  8105 18F74200>add dword ptr ds:[0x42F718],0x854686
+0042D311   .  C3            retn
+0042D312   >  8105 14F74200>add dword ptr ds:[0x42F714],0xA568       ;  Case 54 of switch 0042CE34
+0042D31C   .  8105 18F74200>add dword ptr ds:[0x42F718],0x13220
+0042D326   .  C3            retn
+0042D327   >  8105 14F74200>add dword ptr ds:[0x42F714],0x15592      ;  Case 55 of switch 0042CE34
+0042D331   .  8105 18F74200>add dword ptr ds:[0x42F718],0x302E
+0042D33B   .  C3            retn
+0042D33C   >  8105 14F74200>add dword ptr ds:[0x42F714],0x1DD9       ;  Case 56 of switch 0042CE34
+0042D346   .  8105 18F74200>add dword ptr ds:[0x42F718],0x1C43
+0042D350   .  C3            retn
+0042D351   >  8105 14F74200>add dword ptr ds:[0x42F714],0x266A       ;  Case 58 of switch 0042CE34
+0042D35B   .  8105 18F74200>add dword ptr ds:[0x42F718],0x2BA96C08
+0042D365   .  C3            retn
+0042D366   >  8105 14F74200>add dword ptr ds:[0x42F714],0x3CC0       ;  Case 57 of switch 0042CE34
+0042D370   .  8105 18F74200>add dword ptr ds:[0x42F718],0x4EFC8
+0042D37A   .  C3            retn
+0042D37B   >  8105 14F74200>add dword ptr ds:[0x42F714],0x8311       ;  Case 59 of switch 0042CE34
+0042D385   .  8105 18F74200>add dword ptr ds:[0x42F718],0x1C46
+0042D38F   .  C3            retn
+0042D390   >  8105 14F74200>add dword ptr ds:[0x42F714],0xCE1B       ;  Case 5A of switch 0042CE34 Z
+0042D39A   .  8105 18F74200>add dword ptr ds:[0x42F718],0xB1664
+
+
+Unit1.TForm1.Button1Click
+0042D3C4        push        ebp
+0042D3C5        mov         ebp,esp
+0042D3C7        xor         ecx,ecx
+0042D3C9        push        ecx
+0042D3CA        push        ecx
+0042D3CB        push        ecx
+0042D3CC        push        ecx
+0042D3CD        push        ebx
+0042D3CE        mov         ebx,eax
+0042D3D0        xor         eax,eax
+0042D3D2        push        ebp
+0042D3D3        push        42D5AD
+0042D3D8        push        dword ptr fs:[eax]
+0042D3DB        mov         dword ptr fs:[eax],esp
+0042D3DE        cmp         dword ptr ds:[42F714],0;gvar_0042F714
+0042D3E5>       je          0042D42C
+0042D3E7        cmp         dword ptr ds:[42F718],0;gvar_0042F718           ; 检测是否输入字母 A-Z, a-z
+0042D3EE>       je          0042D42C
+0042D3F0        lea         edx,[ebp-4]
+0042D3F3        mov         eax,dword ptr [ebx+1E0];TForm1.Edit1:TEdit
+0042D3F9        call        TControl.GetText
+0042D3FE        cmp         dword ptr [ebp-4],0
+0042D402>       je          0042D42C
+0042D404        lea         edx,[ebp-8]
+0042D407        mov         eax,dword ptr [ebx+1E4];TForm1.Edit2:TEdit
+0042D40D        call        TControl.GetText
+0042D412        cmp         dword ptr [ebp-8],0
+0042D416>       je          0042D42C
+0042D418        lea         edx,[ebp-0C]
+0042D41B        mov         eax,dword ptr [ebx+1EC];TForm1.Edit3:TEdit
+0042D421        call        TControl.GetText
+0042D426        cmp         dword ptr [ebp-0C],0                            ; 且不能为0
+0042D42A>       jne         0042D470
+0042D42C        mov         eax,42D5C4;'Fill all boxes first dumb!'
+0042D431        call        ShowMessage
+0042D436        xor         eax,eax
+0042D438        mov         [0042F714],eax;gvar_0042F714
+0042D43D        xor         eax,eax
+0042D43F        mov         [0042F718],eax;gvar_0042F718
+0042D444        xor         edx,edx
+0042D446        mov         eax,dword ptr [ebx+1E0];TForm1.Edit1:TEdit
+0042D44C        call        TControl.SetText
+0042D451        xor         edx,edx
+0042D453        mov         eax,dword ptr [ebx+1E4];TForm1.Edit2:TEdit
+0042D459        call        TControl.SetText
+0042D45E        xor         edx,edx
+0042D460        mov         eax,dword ptr [ebx+1EC];TForm1.Edit3:TEdit
+0042D466        call        TControl.SetText
+0042D46B>       jmp         0042D58A
+0042D470        cmp         dword ptr ds:[42F714],0;gvar_0042F714           ;继续
+0042D477>       je          0042D4E5
+0042D479        cmp         dword ptr ds:[42F718],0;gvar_0042F718
+0042D480>       je          0042D4E5
+0042D482        lea         edx,[ebp-10]
+0042D485        mov         eax,[0042F714];gvar_0042F714
+0042D48A        call        IntToStr
+0042D48F        mov         eax,dword ptr [ebp-10]
+0042D492        push        eax
+0042D493        lea         edx,[ebp-4]
+0042D496        mov         eax,dword ptr [ebx+1E4];TForm1.Edit2:TEdit
+0042D49C        call        TControl.GetText
+0042D4A1        mov         edx,dword ptr [ebp-4]
+0042D4A4        pop         eax
+0042D4A5        call        @LStrCmp
+0042D4AA>       jne         0042D4E5
+0042D4AC        lea         edx,[ebp-10]
+0042D4AF        mov         eax,[0042F718];gvar_0042F718
+0042D4B4        call        IntToStr
+0042D4B9        mov         eax,dword ptr [ebp-10]
+0042D4BC        push        eax
+0042D4BD        lea         edx,[ebp-4]
+0042D4C0        mov         eax,dword ptr [ebx+1EC];TForm1.Edit3:TEdit
+0042D4C6        call        TControl.GetText
+0042D4CB        mov         edx,dword ptr [ebp-4]
+0042D4CE        pop         eax
+0042D4CF        call        @LStrCmp
+0042D4D4>       jne         0042D4E5
+0042D4D6        mov         eax,42D5E8;'Hmmm.... Cracked... Congratulations idiot! :-)'
+0042D4DB        call        ShowMessage
+0042D4E0>       jmp         0042D58A
+0042D4E5        cmp         dword ptr ds:[42F714],0;gvar_0042F714
+0042D4EC>       je          0042D521
+0042D4EE        cmp         dword ptr ds:[42F718],0;gvar_0042F718
+0042D4F5>       je          0042D521
+0042D4F7        lea         edx,[ebp-10]
+0042D4FA        mov         eax,[0042F714];gvar_0042F714
+0042D4FF        call        IntToStr
+0042D504        mov         eax,dword ptr [ebp-10]
+0042D507        push        eax
+0042D508        lea         edx,[ebp-4]
+0042D50B        mov         eax,dword ptr [ebx+1E4];TForm1.Edit2:TEdit
+0042D511        call        TControl.GetText
+0042D516        mov         edx,dword ptr [ebp-4]
+0042D519        pop         eax
+0042D51A        call        @LStrCmp
+0042D51F>       jne         0042D54B
+0042D521        lea         edx,[ebp-10]
+0042D524        mov         eax,[0042F718];gvar_0042F718
+0042D529        call        IntToStr
+0042D52E        mov         eax,dword ptr [ebp-10]
+0042D531        push        eax
+0042D532        lea         edx,[ebp-4]
+0042D535        mov         eax,dword ptr [ebx+1EC];TForm1.Edit3:TEdit
+0042D53B        call        TControl.GetText
+0042D540        mov         edx,dword ptr [ebp-4]
+0042D543        pop         eax
+0042D544        call        @LStrCmp
+0042D549>       je          0042D58A
+0042D54B        mov         eax,42D620;'Nice try... but is incorrect... Dumb..'
+0042D550        call        ShowMessage
+0042D555        xor         eax,eax
+0042D557        mov         [0042F714],eax;gvar_0042F714
+0042D55C        xor         eax,eax
+0042D55E        mov         [0042F718],eax;gvar_0042F718
+0042D563        xor         edx,edx
+0042D565        mov         eax,dword ptr [ebx+1E0];TForm1.Edit1:TEdit
+0042D56B        call        TControl.SetText
+0042D570        xor         edx,edx
+0042D572        mov         eax,dword ptr [ebx+1E4];TForm1.Edit2:TEdit
+0042D578        call        TControl.SetText
+0042D57D        xor         edx,edx
+0042D57F        mov         eax,dword ptr [ebx+1EC];TForm1.Edit3:TEdit
+0042D585        call        TControl.SetText
+0042D58A        xor         eax,eax
+0042D58C        pop         edx
+0042D58D        pop         ecx
+0042D58E        pop         ecx
+0042D58F        mov         dword ptr fs:[eax],edx
+0042D592        push        42D5B4
+0042D597        lea         eax,[ebp-10]
+0042D59A        call        @LStrClr
+0042D59F        lea         eax,[ebp-0C]
+0042D5A2        mov         edx,3
+0042D5A7        call        @LStrArrayClr
+0042D5AC        ret
+0042D5AD>       jmp         @HandleFinally
+0042D5B2>       jmp         0042D597
+0042D5B4        pop         ebx
+0042D5B5        mov         esp,ebp
+0042D5B7        pop         ebp
+0042D5B8        ret
