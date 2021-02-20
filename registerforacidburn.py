@@ -300,17 +300,16 @@ def twentySecondFrom160():
 
 def twentyThirdFrom160():
     keyCheck = 0xF6EEDB88
-    checkName = "1" #helloEnter() 
-    #checkName[::-1]
+    checkName = helloEnter() 
 
     lenCheckName = len(checkName)
     listCheckName = list(checkName)
     for i in range(0x10):
         xorPara = 0
         for j in range(4):    
-            if(i+3-j < lenCheckName):
+            if(0xf-i+3-j < lenCheckName):
                 xorPara = (xorPara << 8)
-                xorPara += ord(listCheckName[i+(3-j)])
+                xorPara += ord(listCheckName[(0xf - i)+(3-j)])
         keyCheck ^= xorPara
         keyCheck -= 1
     print(keyCheck)
