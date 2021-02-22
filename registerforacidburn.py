@@ -1,6 +1,8 @@
 import numpy
 import datetime
 import random
+import binascii
+import struct
 
 def firstFrom160():
     checkname = helloEnter()
@@ -315,6 +317,75 @@ def twentyThirdFrom160():
     print(keyCheck)
 
 #123456789abcdefg000
+def big_smaill_end_convert(data):
+    return binascii.hexlify(binascii.unhexlify(data)[::-1])
+
+# def hexToInt(dataHex):
+#     numRet = 0
+#     for i in range(0, len(dataHex), 2):
+        
+
+def twentyFourthFrom160():
+    data = '55 8B EC 83 C4 FC 8B 45 0C 83 F8 10 75 0D 6A 00 E8 6B 02 00 00 33 C0 C9 C2 10 00 83 F8 0F 75 0E \
+            8B 45 08 E8 18 01 00 00 33 C0 C9 C2 10 00 83 F8 01 75 06 33 C0 C9 C2 10 00 3D 11 01 00 00 0F 85 \
+            E7 00 00 00 8B 45 14 3B 05 60 31 40 00 75 1A 6A 00 68 96 30 40 00 68 A7 30 40 00 FF 75 08 E8 17 \
+            02 00 00 33 C0 C9 C2 10 00 3B 05 58 31 40 00 74 0C 3B 05 54 31 40 00 0F 85 AE 00 00 00 C7 05 D9 \
+            12 40 00 54 45 58 00 6A 00 8D 45 FC 50 6A 64 FF 35 50 31 40 00 E8 BC 01 00 00 83 7D FC 00 74 5F \
+            50 6A 14 68 6C 31 40 00 FF 35 54 31 40 00 E8 AF 01 00 00 85 C0 74 48 A1 0B 30 40 00 BB 6C 31 40 \
+            00 03 03 43 81 FB 7C 31 40 00 75 F5 5B 03 C3 31 05 D9 12 40 00 C1 E8 10 66 29 05 D9 12 40 00 BE \
+            EC 11 40 00 B9 3E 00 00 00 33 DB EB 04 00 00 00 00 AD 33 D8 49 75 FA 81'
+    # xx xx xx xx 为(jmp xx==> eb 26 到 24, 2字节， 如果eb在第二个或者第三个xx，前面的xx必须为90，否则xx随意)
+    # 还有 26-24 填充标准为 eb位置，当eb于第一个xx为 26，第二个为25，第三个为24
+    # 如： eb 26 xx xx   |   90 eb 25 xx  |    90 90 eb 24
+    little_en = data.replace(' ', '').encode('utf-8')
+    key = 0
+    for i in range(0, 0x3E * 8, 2 * 4):
+        temp = big_smaill_end_convert(little_en[i:i+8])
+        key = key ^ int(temp, 16) & 0xffffffff
+
+    key = 0xAFFCCFFB ^ key
+    result = big_smaill_end_convert((hex(key)[-2:] + hex(key)[2:-2]).encode('utf-8'))
+
+    paramKey = 'CTEX'
+    listKey = list(paramKey)
+    for i in range(0, len(listKey), 1):
+        listKey[i] = ord(listKey[i])
+    checkName = '123' #helloEnter() 
+    listCheckName = list(checkName)
+    for i in range(0, len(checkName), 1):
+        for j in range(0, 4, 1):
+            if (i + j < len(checkName)):
+                listKey[j] = (listKey[(j) % 4] + ord(listCheckName[i+j])) & 0xFF
+
+    hexKey = ''
+    for v in listKey:
+        hexKey = hex(v)[2:] + hexKey
+
+    # 0xeb265458
+    # result = 0x00584554 ^ (listKey + pass) - (listKey + pass) >> 16
+    # high 16 = 
+    defaultCheck = 0x584554
+    hexDefaultCheck = hex(defaultCheck)[2:]
+    while(len(hexDefaultCheck) < 8):
+        hexDefaultCheck = '0' + hexDefaultCheck
+    
+    lowHexDefaultCheck = int(hexDefaultCheck[-4:], 16)
+    highHexDefaultCheck = int(hexDefaultCheck[0:4], 16)
+
+    highHexKey = int(hexKey[:4], 16)
+    lowHexKey = int(hexKey[4:], 16)
+
+    strResult = big_smaill_end_convert(result).decode('utf-8')
+    highResult = int(strResult[:4], 16)
+    lowResult = int(strResult[4:], 16)
+
+    highPass = highResult ^ highHexDefaultCheck 
+    lowResult = lowResult + highPass
+    lowPass = lowResult ^ lowHexDefaultCheck
+    passwordAdd = highPass * 0x10000 + lowPass
+    checkCode = (passwordAdd - (highHexKey * 0x10000 + lowHexKey)) & 0xffffffff
+    print(checkCode)
+
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -328,7 +399,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    twentyThirdFrom160()
+    twentyFourthFrom160()
 
 if __name__ == '__main__':
     main()
