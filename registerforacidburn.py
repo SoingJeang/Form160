@@ -320,11 +320,6 @@ def twentyThirdFrom160():
 def big_smaill_end_convert(data):
     return binascii.hexlify(binascii.unhexlify(data)[::-1])
 
-# def hexToInt(dataHex):
-#     numRet = 0
-#     for i in range(0, len(dataHex), 2):
-        
-
 def twentyFourthFrom160():
     data = '55 8B EC 83 C4 FC 8B 45 0C 83 F8 10 75 0D 6A 00 E8 6B 02 00 00 33 C0 C9 C2 10 00 83 F8 0F 75 0E \
             8B 45 08 E8 18 01 00 00 33 C0 C9 C2 10 00 83 F8 01 75 06 33 C0 C9 C2 10 00 3D 11 01 00 00 0F 85 \
@@ -350,7 +345,7 @@ def twentyFourthFrom160():
     listKey = list(paramKey)
     for i in range(0, len(listKey), 1):
         listKey[i] = ord(listKey[i])
-    checkName = '123' #helloEnter() 
+    checkName = helloEnter() 
     listCheckName = list(checkName)
     for i in range(0, len(checkName), 1):
         for j in range(0, 4, 1):
@@ -384,8 +379,10 @@ def twentyFourthFrom160():
     lowPass = lowResult ^ lowHexDefaultCheck
     passwordAdd = highPass * 0x10000 + lowPass
     checkCode = (passwordAdd - (highHexKey * 0x10000 + lowHexKey)) & 0xffffffff
-    print(checkCode)
+    helloEnd(checkCode)
 
+def twentyFifthFrom160():
+    helloEnd("55555")
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
