@@ -26,9 +26,9 @@ Private Sub Command1_Click() '402B10
   loc_00402ECF: call edi(var_50, Asc(var_2C), %ecx = %S_edx_S)
   loc_00402ED1: var_12C = edi(var_50, Asc(var_2C), %ecx = %S_edx_S)
   loc_00402EE5: call edi(var_48, %ecx = %S_edx_S, %ecx = %S_edx_S)
-  loc_00402EF4: var_28 = Label2.Caption                                             '???
+  loc_00402EF4: var_28 = Label2.Caption                                             '432.4
   loc_00402FA8: var_198 = var_12C
-  loc_00402FBC: Label2.Caption = CStr(((var_28 * var_118) * global_401100) / Hex(21))
+  loc_00402FBC: Label1.Caption = CStr(((var_28 * var_118) * global_401100) / Hex(21))    '/15
   loc_00403020: call edi(var_48, %ecx = %S_edx_S, %ecx = %S_edx_S)
   loc_00403027: var_eax = Text1.SetFocus
   loc_00403065: SendKeys "{HOME}{DEL}", True
@@ -39,14 +39,14 @@ Private Sub Command1_Click() '402B10
   loc_004030A7: call edi(var_4C, Next var_24, %ecx = %S_edx_S, var_168, var_178)
   loc_004030A9: var_124 = edi(var_4C, Next var_24, %ecx = %S_edx_S, var_168, var_178)
   loc_004030BD: call edi(var_48, %ecx = %S_edx_S, %ecx = %S_edx_S)
-  loc_004030CC: var_28 = Label1.Caption
+  loc_004030CC: var_28 = Label1.Caption                                               '计算结果
   loc_00403108: call __vbaStrR8(Fix(var_28))
-  loc_00403113: var_2C = __vbaStrR8(Fix(var_28))
+  loc_00403113: var_2C = __vbaStrR8(Fix(var_28))                                      '取整数
   loc_00403123: Label1.Caption = var_2C
   loc_0040316C: call edi(var_4C, var_48, %ecx = %S_edx_S)
   loc_0040316E: var_124 = edi(var_4C, var_48, %ecx = %S_edx_S)
   loc_00403182: call edi(var_48, %ecx = %S_edx_S, %ecx = %S_edx_S)
-  loc_0040318D: var_28 = Label4.Caption
+  loc_0040318D: var_28 = Label4.Caption                                               'name
   loc_004031B2: Label4.MousePointer = var_28
   loc_00403203: SendKeys "{END}", True
   loc_00403220: call edi(var_4C, %ecx = %S_edx_S, %ecx = %S_edx_S)
@@ -57,21 +57,21 @@ Private Sub Command1_Click() '402B10
   loc_00403299: var_154 = edi(var_64, %ecx = %S_edx_S, %ecx = %S_edx_S)
   loc_004032AA: call edi(var_48, edi(var_64, %ecx = %S_edx_S, %ecx = %S_edx_S), %ecx = %S_edx_S)
   loc_004032B9: var_28 = Text1.Text
-  loc_00403319: var_EC = (var_2C + Asc(var_28))
+  loc_00403319: var_EC = (var_2C + Asc(var_28))                                       ' loop1 + ascii()
   loc_00403334: call edi(var_50, Err.Number, %ecx = %S_edx_S)
   loc_00403343: var_30 = Label3.Caption
   loc_0040336B: Asc(var_34) = Asc(var_34) * 0019h
-  loc_004033A2: var_6C = (var_30 - Asc(var_34))
+  loc_004033A2: var_6C = (var_30 - Asc(var_34))                                         'loop1 - ascii() * 0x19 
   loc_004033AF: var_84 = Hex(var_6C)
   loc_004033C3: call edi(var_58, %ecx = %S_edx_S, %ecx = %S_edx_S)
   loc_004033CE: var_38 = Label3.Caption
   loc_004033FE: var_9C = var_38
-  loc_0040340E: var_B4 = Hex(var_38)
+  loc_0040340E: var_B4 = Hex(var_38)                                                    'hex(loop)
   loc_00403422: call edi(var_5C, %ecx = %S_edx_S, %ecx = %S_edx_S)
   loc_0040342D: var_3C = Text1.Text
   loc_00403459: call edi(var_60, var_3C, %ecx = %S_edx_S)
   loc_00403464: var_40 = Text1.Text
-  loc_00403499: Asc(var_3C) = Asc(var_3C) * Len(var_40)
+  loc_00403499: Asc(var_3C) = Asc(var_3C) * Len(var_40)                                   'ansii * len'
   loc_004034B2: Asc(var_3C) = Asc(var_3C) - 0000001Bh
   loc_004034C1: var_FC = Asc(var_3C)
   loc_004034D8: var_94 = ((var_28 * var_118) * global_401100) & var_84
