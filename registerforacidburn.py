@@ -384,6 +384,33 @@ def twentyFourthFrom160():
 def twentyFifthFrom160():
     helloEnd("55555")
 
+def strUpperOrLow(data, isUpper):
+    for _char in data:
+        if isUpper:
+            if _char >= 'a' and _char <= 'z':
+                _char = _char
+
+def twentySixthFrom160():
+    checkName = helloEnter() 
+    lenCheckName = len(checkName)
+    if (lenCheckName < 4):
+        print("Name must more than 4 character")
+        return
+    
+    ascKey = ord(checkName[0:1])
+    
+    loopfloat = (432.4 * ascKey * 17.79) / 15
+    loopInt = int(loopfloat)
+    checkCode = str(loopInt+ascKey) + hex(loopInt - ascKey * 0x19)[2:].upper() + hex(loopInt)[2:].upper() + str(ascKey * lenCheckName -0x1b) + str(lenCheckName) +"-CM"
+    helloEnd(checkCode)
+
+def twentySenvenFrom160():
+    # GetDriveTypeA (String drive) Library ″kernel32.dll″
+    # 参数为一个盘符（如“C:"），
+    # 返回值：1表示未知，2表示软驱，3表示本地硬盘，4表示网络驱动器，5表示光驱。因此如下代码可以获得光盘的盘符：
+    # 选择一个CD_CHECK.DAT 放于光盘中，即可解开
+    pass
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -396,7 +423,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    twentyFourthFrom160()
+    twentySixthFrom160()
 
 if __name__ == '__main__':
     main()

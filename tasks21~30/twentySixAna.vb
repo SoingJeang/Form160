@@ -28,7 +28,7 @@ Private Sub Command1_Click() '402B10
   loc_00402EE5: call edi(var_48, %ecx = %S_edx_S, %ecx = %S_edx_S)
   loc_00402EF4: var_28 = Label2.Caption                                             '432.4
   loc_00402FA8: var_198 = var_12C
-  loc_00402FBC: Label1.Caption = CStr(((var_28 * var_118) * global_401100) / Hex(21))    '/15
+  loc_00402FBC: Label1.Caption = CStr(((var_28 * var_118) * global_401100) / Hex(21))    '((432.4*ascii)* 17.79)/15
   loc_00403020: call edi(var_48, %ecx = %S_edx_S, %ecx = %S_edx_S)
   loc_00403027: var_eax = Text1.SetFocus
   loc_00403065: SendKeys "{HOME}{DEL}", True
@@ -61,7 +61,7 @@ Private Sub Command1_Click() '402B10
   loc_00403334: call edi(var_50, Err.Number, %ecx = %S_edx_S)
   loc_00403343: var_30 = Label3.Caption
   loc_0040336B: Asc(var_34) = Asc(var_34) * 0019h
-  loc_004033A2: var_6C = (var_30 - Asc(var_34))                                         'loop1 - ascii() * 0x19 
+  loc_004033A2: var_6C = (var_30 - Asc(var_34))                                         'hex(loop1 - ascii() * 0x19)
   loc_004033AF: var_84 = Hex(var_6C)
   loc_004033C3: call edi(var_58, %ecx = %S_edx_S, %ecx = %S_edx_S)
   loc_004033CE: var_38 = Label3.Caption
@@ -71,7 +71,7 @@ Private Sub Command1_Click() '402B10
   loc_0040342D: var_3C = Text1.Text
   loc_00403459: call edi(var_60, var_3C, %ecx = %S_edx_S)
   loc_00403464: var_40 = Text1.Text
-  loc_00403499: Asc(var_3C) = Asc(var_3C) * Len(var_40)                                   'ansii * len'
+  loc_00403499: Asc(var_3C) = Asc(var_3C) * Len(var_40)                                   'ansii * len - 0x1b'
   loc_004034B2: Asc(var_3C) = Asc(var_3C) - 0000001Bh
   loc_004034C1: var_FC = Asc(var_3C)
   loc_004034D8: var_94 = ((var_28 * var_118) * global_401100) & var_84
