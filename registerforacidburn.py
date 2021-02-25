@@ -411,6 +411,14 @@ def twentySenvenFrom160():
     # 选择一个CD_CHECK.DAT 放于光盘中，即可解开
     pass
 
+def twentyEighthFrom160():
+    passwordHex = "363238372D41"
+    password = ""
+    for i in range(0, len(passwordHex), 2):
+        hexSing = passwordHex[i:i+2]
+        password += chr(int(hexSing, 16))
+    print(password)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -423,7 +431,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    twentySixthFrom160()
+    twentyEighthFrom160()
 
 if __name__ == '__main__':
     main()
