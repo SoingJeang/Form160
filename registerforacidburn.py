@@ -419,6 +419,24 @@ def twentyEighthFrom160():
         password += chr(int(hexSing, 16))
     print(password)
 
+def twentyninethFrom160():
+    checkName = helloEnter()
+    if(len(checkName) < 6):
+        print("name must than 5 character")
+        return
+
+    nameLooper = 1
+    passLooper = 0xA
+    checkCode = ""
+
+    for _char in checkName:
+        passCode = ord(_char) ^ nameLooper ^ passLooper
+        checkCode += chr(passCode)
+        nameLooper+=1
+        passLooper+=1
+
+    helloEnd(checkCode)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
