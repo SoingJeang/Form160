@@ -28,13 +28,13 @@ Private Sub Command1_Click() '402B40
   loc_00402DB1: call Asc(var_54) xor edx(var_78, var_38, 00000001h, 2, @Asc(%StkVar1), Asc(var_54) xor edx)
   loc_00402DEF: call Asc(var_54) xor edx(var_A8, 2, var_18, 2)
   loc_00402E0C: var_50 = CStr(var_78)
-  loc_00402E41: var_4C = var_4C & Chr(Asc(CStr(var_A8)) xor ecx)
+  loc_00402E41: var_4C = var_4C & Chr(Asc(CStr(var_A8)) xor ecx)     'loopchar xor 2000 
   loc_00402E8D: edx = var_18 + 1
   loc_00402EA0: 00000001h = 00000001h + var_3C
   loc_00402EA4: var_18 = var_18 + 1
   loc_00402EB2: var_3C = 00000001h+var_3C
   loc_00402EB5: GoTo loc_00402D80
-  loc_00402EBA: 'Referenced from: 00402D87
+  loc_00402EBA: 'Referenced from: 00402D87                            ' loopchar == "VeiajeEjbavwij"
   loc_00402EE2: If (var_4C = "VeiajeEjbavwij") = 0 Then GoTo loc_00402F89
   loc_00402F2B: var_78 = "Invalid"
   loc_00402F46: var_68 = "Password incorrect, please try again ..."
