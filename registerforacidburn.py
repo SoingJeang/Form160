@@ -449,6 +449,25 @@ def thirtythFrom160():
         index+=1
     helloEnd(checkCode)
 
+def thirtythSecondFrom160():
+    checkName = helloEnter()
+    checkCode = ""
+    index = 0
+
+    for _char in checkName:
+        index+= 1
+        if index == 2:
+            continue
+        if index > 5:
+            break
+        chec = str(int(ord(_char) / 0xA))
+        if len(chec) > 1:
+            checkCode += "1"
+        else:
+            checkCode += chec
+
+    helloEnd(checkCode)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -461,7 +480,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    thirtythFrom160()
+    thirtythSecondFrom160()
 
 if __name__ == '__main__':
     main()
