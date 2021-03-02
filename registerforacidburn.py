@@ -508,6 +508,9 @@ def thirtythFourthFrom160():
         wf.write(checkName.encode('utf-8'))
         wf.write(checkCode)
 
+def thirtythFifthFrom160():
+    helloEnd("..........")
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
