@@ -3,6 +3,8 @@ import datetime
 import random
 import binascii
 import struct
+import random
+import string
 
 def firstFrom160():
     checkname = helloEnter()
@@ -438,7 +440,7 @@ def twentyninethFrom160():
     helloEnd(checkCode)
 
 def thirtythFrom160():
-    checkName = "qBQSYdXUe_B\V"
+    checkName = r"qBQSYdXUe_B\V"
     checkCode = ""
     index = 0
     for _char in checkName:
@@ -453,6 +455,9 @@ def thirtythSecondFrom160():
     checkName = helloEnter()
     checkCode = ""
     index = 0
+    if(len(checkName) < 5):
+        print("name must more than 4 character")
+        return
 
     for _char in checkName:
         index+= 1
@@ -468,6 +473,41 @@ def thirtythSecondFrom160():
 
     helloEnd(checkCode)
 
+def thirtythThirdthFrom160():
+    checkName = helloEnter()
+    checkNop = 0
+    for _char in checkName:
+        if _char >= 'a'and _char <= 'z':
+            _char = chr(ord(_char) - 0x20)
+        checkNop += ord(_char)
+    checkNop = checkNop ^ 0x5678 ^0x1234
+    helloEnd(checkNop)
+
+def thirtythFourthFrom160():
+    checkName = ""
+    while(len(checkName) < 14):
+        a_str = string.ascii_letters
+        random_letter = random.choice(a_str)
+        checkName += random_letter
+    
+    checkAdd = 0
+    index = 0
+    for _char in checkName:
+        temp = ord(_char) ^ (ord('A') + index)
+        if temp == 0:
+            break
+        checkAdd += temp
+        index += 1
+        if index == 0xE:
+            break
+    checkAdd ^= 0x12345678
+    checkCode = struct.pack('i', checkAdd)
+
+    #写入文件
+    with open('CRACKME3.KEY', 'wb') as wf:
+        wf.write(checkName.encode('utf-8'))
+        wf.write(checkCode)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -480,7 +520,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    thirtythSecondFrom160()
+    thirtythFourthFrom160()
 
 if __name__ == '__main__':
     main()
