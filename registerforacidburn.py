@@ -451,6 +451,19 @@ def thirtythFrom160():
         index+=1
     helloEnd(checkCode)
 
+def thirtyFirstFrom160():
+    checkName = "VeiajeEjbavwij"
+    checkCode = ""
+    listCheckName = list(checkName)
+    
+    for index in range(len(checkName)):
+        if (index % 4 == 0):
+            checkCode += chr(ord(listCheckName[index]) ^ ord('4') ^ ord('2'))
+        else:
+            checkCode += chr(ord(listCheckName[index]) ^ ord('4') ^ ord('0'))
+    helloEnd(checkCode)
+
+
 def thirtythSecondFrom160():
     checkName = helloEnter()
     checkCode = ""

@@ -16,7 +16,7 @@ Private Sub Command1_Click() '402B40
   loc_00402CFC: var_38 = var_38 & var_A8
   loc_00402D42: 00000001h = 00000001h + 1
   loc_00402D4C: var_3C = 00000001h+var_3C
-  loc_00402D4F: GoTo loc_00402C52             'loop char xor name[3] --> string
+  loc_00402D4F: GoTo loc_00402C52             'loop char xor '4' --> string
 
   loc_00402D54: 'Referenced from: 00402C5F
   loc_00402D63: var_68 = Len(var_38)
