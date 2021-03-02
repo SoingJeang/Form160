@@ -511,6 +511,9 @@ def thirtythFourthFrom160():
 def thirtythFifthFrom160():
     helloEnd("..........")
 
+def thirtythSixthFrom160():
+    helloEnd("..........")
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
