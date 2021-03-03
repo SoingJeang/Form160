@@ -527,6 +527,30 @@ def thirtythFifthFrom160():
 def thirtythSixthFrom160():
     helloEnd("..........")
 
+def thirtythSeventhFrom160():
+    # 条件 C3 C2 C0
+    # ST(0) > SRC 0 0 0
+    # ST(0) < SRC 0 0 1
+    # ST(0)  SRC 1 0  0
+    # 无序* 1 1 1
+    helloEnd("315751288")
+
+def thirtyEighthFrom160():
+    checkName = helloEnter()
+    checkAscii = ""
+    for _char in checkName:
+        checkAscii += str(ord(_char))
+    
+    checkAscii = int(checkAscii)
+    while checkAscii > 999999999:
+        checkAscii = int(checkAscii / 3.141592654)
+    checkAscii ^= 0x30F85678
+    checkAscii -= 55475
+
+    checkCode = checkAscii + len(checkName)
+    print(checkCode)
+
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -539,7 +563,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    thirtythFourthFrom160()
+    thirtyEighthFrom160()
 
 if __name__ == '__main__':
     main()
