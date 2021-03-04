@@ -1,10 +1,10 @@
 import numpy
 import datetime
 import random
-import binascii
 import struct
 import random
 import string
+from commonForm import *
 
 def firstFrom160():
     checkname = helloEnter()
@@ -73,7 +73,7 @@ def SixSupport(edi, listName):
            ebx += edx
     return ebx
 
-def SixthForm160():
+def ServenthForm160():
     # 1、虚假code(>5个非全数字) 获得eax 进edi
     checkCode = input("Please Enter Your First Code!\n")
     if(len(checkCode) < 6):
@@ -181,22 +181,6 @@ def ThirdThenForm160():
         indexFac += 1
     checkCode = str(int(var_90)) + "-" + str(int(var_178))
     helloEnd(checkCode) 
-
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        pass
- 
-    try:
-        import unicodedata
-        unicodedata.numeric(s)
-        return True
-    except (TypeError, ValueError):
-        pass
- 
-    return False
 
 def ForteenthForm160():
     checkCode = ""
@@ -318,10 +302,6 @@ def twentyThirdFrom160():
         keyCheck -= 1
     print(keyCheck)
 
-#123456789abcdefg000
-def big_smaill_end_convert(data):
-    return binascii.hexlify(binascii.unhexlify(data)[::-1])
-
 def twentyFourthFrom160():
     data = '55 8B EC 83 C4 FC 8B 45 0C 83 F8 10 75 0D 6A 00 E8 6B 02 00 00 33 C0 C9 C2 10 00 83 F8 0F 75 0E \
             8B 45 08 E8 18 01 00 00 33 C0 C9 C2 10 00 83 F8 01 75 06 33 C0 C9 C2 10 00 3D 11 01 00 00 0F 85 \
@@ -385,12 +365,6 @@ def twentyFourthFrom160():
 
 def twentyFifthFrom160():
     helloEnd("55555")
-
-def strUpperOrLow(data, isUpper):
-    for _char in data:
-        if isUpper:
-            if _char >= 'a' and _char <= 'z':
-                _char = _char
 
 def twentySixthFrom160():
     checkName = helloEnter() 
@@ -550,6 +524,34 @@ def thirtyEighthFrom160():
     checkCode = checkAscii + len(checkName)
     print(checkCode)
 
+def thirtyNinethFrom160():
+    checkName = helloEnter()
+    nIndex = 0
+
+    nAddStr = 0
+    keyBenefit = 0x44414d4e
+    for _char in checkName: #firstLoop
+        nAddStr += ord(_char) 
+        keyBenefit = circular_shift_right(keyBenefit, 1 + nIndex, 32)
+        nIndex += 1
+        keyBenefit ^= nAddStr
+    keyBenefit |= 0x10101010
+
+    checkCode = ""
+    for _ in range(8):
+        keyBenefit = circular_shift_left(keyBenefit, 4, 32)
+        ckeckByte = keyBenefit & 0xf
+        checkCode += str(hex(ckeckByte)[2:])
+    helloEnd(checkCode)
+
+def fortythFrom160():
+    checkName = helloEnter()
+    checkCode = ""
+
+    for _char in checkName:
+        checkCode += chr(ord(_char) + 5)
+    
+    helloEnd(checkCode)
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -563,7 +565,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    thirtyEighthFrom160()
+    fortythFrom160()
 
 if __name__ == '__main__':
     main()
