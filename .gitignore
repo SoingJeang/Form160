@@ -16,3 +16,9 @@ __pycache__/commonForm.cpython-37.pyc
 cppFunc/hexToAscii.ilk
 cppFunc/hexToAscii.obj
 cppFunc/hexToAscii.exe
+cppFunc/dllInject.exe
+cppFunc/dllInject.ilk
+cppFunc/dllInject.obj
+cppFunc/dllInject.pdb
+cppFunc/NewMenu.cpp
+cppFunc/NewMenu.obj

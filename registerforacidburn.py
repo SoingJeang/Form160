@@ -553,6 +553,10 @@ def fortythFrom160():
     
     helloEnd(checkCode)
 
+def fortythFirstFrom160():
+    # 41.asm
+    pass
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
