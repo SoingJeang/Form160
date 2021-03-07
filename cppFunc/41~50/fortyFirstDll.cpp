@@ -18,6 +18,10 @@ byte g_pOrder[] = { 0x89, 0x05, 0, 0, 0, 0,
 byte g_pOrEaxder[] = { 0x89, 0x05, 0, 0, 0, 0, 
                     0x68, 0, 0, 0, 0, 0xc3};
 
+byte g_pOld_code[] = {0x53, 0x8B, 0xD8, 0x80, 0x7B, 0x2D, 
+                        0x00, 0x74, 0x65, 0x66, 0x83, 0xBB, 
+                        0x82, 0x00, 0x00, 0x00, 0x00, 0x74};
+
 BOOL NameCheck()
 {
     return TRUE;
@@ -31,10 +35,7 @@ BOOL EntryFunc()
     char **ppszName = (char **)((byte *)g_dwEAX + 0x8);
 
     // 还原现场
-    byte pOld_code[] = {0x53, 0x8B, 0xD8, 0x80, 0x7B, 0x2D, 
-                        0x00, 0x74, 0x65, 0x66, 0x83, 0xBB, 
-                        0x82, 0x00, 0x00, 0x00, 0x00, 0x74};
-    memcpy(g_pfnAddress, pOld_code, sizeof(g_pOrder));
+    memcpy(g_pfnAddress, g_pOld_code, sizeof(g_pOrder));
     //MessageBoxA(NULL, "Get Info", "Third", MB_OK);
     
     __asm {
@@ -116,6 +117,11 @@ extern "C" DLL_EXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason,
         // 入口点
         if (!hook_func_eax((PROC)EntryFunc, g_pfnAddress))
             MessageBoxA(NULL, "Dll inject error", "FortyFirst", MB_OK);
+        break;
+
+    case DLL_PROCESS_DETACH:
+        // 脱钩
+        memcpy(g_pfnAddress, g_pOld_code, sizeof(g_pOrder));
         break;
     }
     return TRUE; // succesful
