@@ -21,6 +21,24 @@
 			],
 			"group": "build",
 			"detail": "编译器: cl.exe"
+		},
+		{
+			"type": "shell",
+			"label": "CL 生成 Dll",
+			"command": "cl.exe",
+			"args": [
+				"/LDd",
+				// "${fileDirname}\\${fileBasenameNoExtension}.dll",
+				"${file}"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build",
+			"detail": "编译器: cl.exe"
 		}
 	]
 }

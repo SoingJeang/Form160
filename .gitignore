@@ -22,3 +22,9 @@ cppFunc/dllInject.obj
 cppFunc/dllInject.pdb
 cppFunc/NewMenu.cpp
 cppFunc/NewMenu.obj
+cppFunc/fortyFirstDll.exp
+cppFunc/fortyFirstDll.lib
+cppFunc/fortyFirstDll.obj
+cppFunc/41~50/fortyFirstDll.exp
+cppFunc/41~50/fortyFirstDll.lib
+cppFunc/41~50/fortyFirstDll.obj

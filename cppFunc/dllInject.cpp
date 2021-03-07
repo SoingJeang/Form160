@@ -5,6 +5,7 @@
 #include <string>
 #include  "Tlhelp32.h "
 #pragma comment (lib,"Advapi32.lib")
+#pragma comment (lib, "user32.lib")
 
 using namespace std;
 bool DllJeject(DWORD dwPid, LPCTSTR szDLlPath);
@@ -14,6 +15,12 @@ wstring AnsiToUnicode(string strAnsi);
 
 void main(int argc, TCHAR *argv[])
 {
+    if (argc < 3)
+    {
+        MessageBoxA(NULL, "Parameater must 3!", "Error", MB_OK);
+        return;
+    }
+        
     wchar_t szProcessName[MAX_PATH];
 #ifdef UNICODE
     wcscpy(szProcessName, argv[1]);
@@ -22,11 +29,10 @@ void main(int argc, TCHAR *argv[])
 #endif
     
     DWORD dwPID = GetProcPid(szProcessName);
-    TCHAR szDllPath[] = _T("xxxx.dll");
     
-    if (DllJeject(dwPID, szDllPath))
+    if (DllJeject(dwPID, argv[2]))
     {
-        if (!argv[2])
+        if (argv[2])
             cout<<"Success "<< argv[2]<<endl;
     }
     else
@@ -41,7 +47,7 @@ bool DllJeject(DWORD dwPid, LPCTSTR szDLlPath)
     HANDLE hProcess = NULL, hThread = NULL;
     HMODULE hMod = NULL;
     LPVOID pRemoteDllName = NULL;
-    DWORD dwDllBufferLen = (DWORD)(_tcslen(szDLlPath) * sizeof(TCHAR));
+    DWORD dwDllBufferLen = (DWORD)((_tcslen(szDLlPath) + 1) * sizeof(TCHAR));
     LPTHREAD_START_ROUTINE pTHreadProc = NULL;
 
     hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPid);
@@ -51,8 +57,11 @@ bool DllJeject(DWORD dwPid, LPCTSTR szDLlPath)
     }
 
     pRemoteDllName = VirtualAllocEx(hProcess, NULL, dwDllBufferLen, MEM_COMMIT, PAGE_READWRITE);
-    WriteProcessMemory(hProcess, pRemoteDllName, (LPVOID)szDLlPath, dwDllBufferLen, NULL);
-    hMod = GetModuleHandle(_T("kernel32.dll"));
+    BOOL bOk = WriteProcessMemory(hProcess, pRemoteDllName, (LPVOID)szDLlPath, dwDllBufferLen, NULL);
+    if (!bOk)
+        return false;
+
+    hMod = GetModuleHandleA("kernel32.dll");
     pTHreadProc = (LPTHREAD_START_ROUTINE)GetProcAddress(hMod, "LoadLibraryA");
     hThread = CreateRemoteThread(hProcess, NULL, 0, pTHreadProc, pRemoteDllName, 0, NULL);
 
