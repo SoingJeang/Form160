@@ -28,7 +28,8 @@
 			"command": "cl.exe",
 			"args": [
 				"/LDd",
-				// "${fileDirname}\\${fileBasenameNoExtension}.dll",
+				"/Fe:",
+				"${fileDirname}\\${fileBasenameNoExtension}.dll",
 				"${file}"
 			],
 			"options": {
