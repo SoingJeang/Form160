@@ -1,7 +1,4 @@
-#include <tchar.h>
-#include <windows.h>
-#include <string>
-#include <iostream>
+#include "windowHook.h"
 #include "Tlhelp32.h"
 
 using namespace std;
@@ -34,8 +31,6 @@ int EnableDebugPriv(const TCHAR *name);
 BOOL Init();
 BOOL Exit();
 LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam);
-BOOL StartHook();
-BOOL StopHook();
 void Inject();
 void HookOn();
 void HookOff();
@@ -43,15 +38,22 @@ void WriteMemory(LPVOID lpAddress, BYTE *pcode, int length);
 int WINAPI MyMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCation, UINT uType);
 int WINAPI MyMessageBoxW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCation, UINT uType);
 
-int WINAPI _tWinMain(HINSTANCE hInstExe, HINSTANCE, PTSTR oszCmdLine, int)
+extern "C" DLL_EXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
-    //     if(!SetHook(0))
-    //         MessageBoxA(NULL, "SetHook_Error", "Error", MB_OK);
-    //     else
-    //         MessageBoxA(NULL, "SetHook_Success", "Success", MB_OK);
-    //     return 0;
-    // }
-    return 0;
+
+    switch (fdwReason)
+    {
+    case DLL_PROCESS_ATTACH:
+        g_hInstance = hinstDLL;
+        Init();
+        break;
+
+    case DLL_PROCESS_DETACH:
+        // 脱钩
+        Exit();
+        break;
+    }
+    return TRUE; // succesful
 }
 
 int EnableDebugPriv(const TCHAR *name)
@@ -86,7 +88,6 @@ int EnableDebugPriv(const TCHAR *name)
 
 LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
-    // 挂钩上其他功能
     if (g_hHook)
         return CallNextHookEx(g_hHook, nCode, wParam, lParam);
     return 0;
@@ -96,8 +97,8 @@ BOOL StartHook(HWND hWnd)
 {
     BOOL bRet = FALSE;
     g_hWnd = hWnd;
-    g_hHook = ::SetWindowsHookEx(WH_MOUSE,MouseProc,g_hInstance,0);
-    if(g_hHook)
+    g_hHook = ::SetWindowsHookEx(WH_MOUSE, MouseProc, g_hInstance, 0);
+    if (g_hHook)
         bRet = TRUE;
     return bRet;
 }
@@ -106,7 +107,8 @@ BOOL StopHook()
 {
     BOOL bRet = FALSE;
     HookOff();
-    if (g_hHook != NULL){
+    if (g_hHook != NULL)
+    {
         UnhookWindowsHookEx(g_hHook);
         FreeLibrary(g_hInstance);
     }
@@ -126,6 +128,7 @@ BOOL Init()
         return FALSE;
     }
 
+    MessageBoxA(NULL, "init", "Info", MB_OK);
     Inject();
     return TRUE;
 }
@@ -144,8 +147,14 @@ void Inject()
     g_bInjected = TRUE;
 
     HMODULE hModule = ::LoadLibrary(_T("User32.dll"));
+    if (!hModule)
+    {
+        MessageBoxA(NULL, "获取 User32.dll 失败", "Error", MB_OK);
+        return;
+    }
     g_pfnOldMessageBoxA = (TypeMsgBoxA)::GetProcAddress(hModule, "MessageBoxA");
     g_pfnOldMessageBoxW = (TypeMsgBoxW)::GetProcAddress(hModule, "MessageBoxW");
+
     g_pfnMsgBoxA = (FARPROC)g_pfnOldMessageBoxA;
     g_pfnMsgBoxW = (FARPROC)g_pfnOldMessageBoxW;
     if (NULL == g_pfnMsgBoxA || NULL == g_pfnMsgBoxW)
@@ -153,6 +162,12 @@ void Inject()
         MessageBoxA(NULL, "获取 MessageBoxA 函数失败", "Error", MB_OK);
         return;
     }
+
+    char szInfo[1024];
+    sprintf(szInfo, "OldMsgA addr is :0x%p, \nOldMsgW addr is :0x%p", g_pfnMsgBoxA, g_pfnMsgBoxW);
+    // MessageBoxA(NULL, szInfo, "Info", MB_OK);
+    sprintf(szInfo, "MyMsgA addr is :0x%p, \nMyMsgW addr is :0x%p", MyMessageBoxA, MyMessageBoxW);
+    // MessageBoxA(NULL, szInfo, "Info", MB_OK);
 
     __asm
         {
@@ -170,19 +185,28 @@ void Inject()
 
     // 将新地址复制到入口
     g_bNewMsgBoxACode[0] = g_bNewMsgBoxWCode[0] = 0xe9; // jmp 间接寻址
-    __asm
-        {
+    __asm {
         lea eax, MyMessageBoxA
         mov ebx, g_pfnMsgBoxA
         sub eax, ebx
         sub eax, CODE_LENGTH
-        mov dword ptr [g_bNewMsgBoxACode + 1], eax
+        mov dword ptr ds:[g_bNewMsgBoxACode + 1], eax
         lea eax, MyMessageBoxW
         mov ebx, g_pfnMsgBoxW
         sub eax, ebx
         sub eax, CODE_LENGTH
         mov dword ptr [g_bNewMsgBoxWCode + 1], eax
-        }
+    }
+
+    string strOutA = "New InfoA is :", strOutW = "New InfoW is :";
+    for(int i=0;i<CODE_LENGTH; ++i)
+    {
+        sprintf(szInfo, "%0X", g_bNewMsgBoxACode[i]);
+        strOutA += szInfo;
+        sprintf(szInfo, "%0X", g_bNewMsgBoxWCode[i]);
+        strOutW += szInfo;
+    }
+    // MessageBoxA(NULL, (strOutA+strOutW).c_str(), "Info", MB_OK);
 
     HookOn();
 }
@@ -191,14 +215,16 @@ void HookOn()
 {
     if (NULL == g_hProcess)
         return;
+    //::MessageBoxA(NULL, "Ready for Hook ", "lpCation", MB_OK);
     WriteMemory(g_pfnMsgBoxA, g_bNewMsgBoxACode, CODE_LENGTH);
     WriteMemory(g_pfnMsgBoxW, g_bNewMsgBoxWCode, CODE_LENGTH);
+    //::MessageBoxA(NULL, "HOOKed ", "lpCation", MB_OK);
 }
 
 void HookOff()
 {
-    WriteMemory(g_pfnMsgBoxA,g_bOldMsgBoxACode,CODE_LENGTH);
-    WriteMemory(g_pfnMsgBoxW,g_bOldMsgBoxWCode,CODE_LENGTH);
+    WriteMemory(g_pfnMsgBoxA, g_bOldMsgBoxACode, CODE_LENGTH);
+    WriteMemory(g_pfnMsgBoxW, g_bOldMsgBoxWCode, CODE_LENGTH);
 }
 
 void WriteMemory(LPVOID lpAddress, BYTE *pcode, int length)
@@ -211,7 +237,7 @@ void WriteMemory(LPVOID lpAddress, BYTE *pcode, int length)
     dwRet = WriteProcessMemory(g_hProcess, lpAddress, pcode, length, &dwWrited);
     if (0 == dwRet || 0 == dwWrited)
     {
-        // 失败
+        MessageBoxA(NULL, " 写入内存失败", "Err", MB_OK);
     }
     VirtualProtectEx(g_hProcess, lpAddress, length, dwOldProtect, NULL);
 }
@@ -222,8 +248,8 @@ int WINAPI MyMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCation, UINT uType)
     int nRet = 0;
     HookOff();
 
-    // nRet = ::MessageBoxA(hWnd, "哈哈 ^_^，MessageBoxA 被 HOOK 咯", lpCation, uType);
-    // nRet = ::MessageBoxA(hWnd, lpText, lpCation, uType);
+    nRet = ::MessageBoxA(hWnd, "MessageBoxA be HOOKen ", lpCation, uType);
+    // nRet = ::MessageBoxA(NULL, lpText, lpCation, uType);
 
     HookOn();
     return nRet;
@@ -235,8 +261,8 @@ int WINAPI MyMessageBoxW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCation, UINT uType
     int nRet = 0;
     HookOff();
 
-    // nRet = ::MessageBoxW(hWnd, L"W哈 ^_^，MessageBoxW 被 HOOK 咯", lpCation, uType);
-    // nRet = ::MessageBoxW(hWnd, lpText, lpCation, uType);
+    nRet = ::MessageBoxW(NULL, L"WMessageBoxW be HOOKed", lpCation, uType);
+    // nRet = ::MessageBoxW(NULL, lpText, lpCation, uType);
 
     HookOn();
     return nRet;
