@@ -13,7 +13,13 @@ using namespace std;
 #pragma comment (lib, "user32.lib")
 
 #define CODE_LENGTH 22
-BYTE g_bOrder[CODE_LENGTH];
+BYTE g_bOrder[CODE_LENGTH] = {  0x6A,0x00,     //push 0 
+                                0x6A,0x00,     //push 0 
+                                0xB8,0x00,0x00,0x00,0x00,  //mov eax,[message]
+                                0x50,                      //push eax
+                                0x6A,0x00,                 //push 0
+                                0xE8,0x00,0x00,0x00,0x00,
+                                0xE9,0x00,0x00,0x00,0x00};
 BYTE g_bOldCode[CODE_LENGTH];
 
 FARPROC GetEntryAddressFromExe(LPCTSTR lpName)
@@ -48,31 +54,14 @@ BOOL GetWriteAddress(LPCTSTR lpName, DWORD dwMyFuncAddress, DWORD* pdwNewEntryAd
     DWORD dwNumofSection, dwSizeofOptionHeader, dwImageBase, dwEntryCode, dwUnInitDataSize,
           dwPointerRawData, dwVirtualAddress, dwCodeWirteAddress;
     HANDLE hFile, hMapping;
-    void * basepointer = NULL;
-    if(INVALID_HANDLE_VALUE == (hFile = CreateFile(lpName, GENERIC_READ | GENERIC_WRITE,
-                                FILE_SHARE_READ | FILE_SHARE_WRITE,
-                                0,
-                                OPEN_EXISTING,
-                                FILE_FLAG_SEQUENTIAL_SCAN,
-                                0)))
-    {
-        return FALSE;
-    }
+#ifdef UNICODE
+    string fileName = UnicodeToAnsi(lpName);
+#else
+    string fileName = lpName;
+#endif
+    tuple<bool, char*, fstream::pos_type> bin = PE::OpenBinary(fileName);
 
-    if(!(hMapping = CreateFileMapping(hFile, 0, PAGE_READONLY | SEC_COMMIT, 0, 0, 0)))
-    {
-        CloseHandle(hFile);
-        return FALSE;
-    }
-
-    if(!(basepointer = MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, 0)))
-    {
-        CloseHandle(hMapping);
-        CloseHandle(hFile);
-        return FALSE;
-    }
-
-    PIMAGE_DOS_HEADER dos_head = (IMAGE_DOS_HEADER*)basepointer;
+    PIMAGE_DOS_HEADER dos_head = (IMAGE_DOS_HEADER*)get<1>(bin);
     PIMAGE_NT_HEADERS nt = (PIMAGE_NT_HEADERS)((char*)dos_head + dos_head->e_lfanew);
     PIMAGE_OPTIONAL_HEADER option_header = (PIMAGE_OPTIONAL_HEADER)(&(nt->OptionalHeader));
     PIMAGE_FILE_HEADER file_header  = (PIMAGE_FILE_HEADER)(&(nt->FileHeader));
@@ -101,8 +90,6 @@ BOOL GetWriteAddress(LPCTSTR lpName, DWORD dwMyFuncAddress, DWORD* pdwNewEntryAd
     *pdwCallShift = dwMyFuncAddress - (dwImageBase + dwVirtualAddress + dwUnInitDataSize + 5);
     *pdwOrderAddress = dwUnInitDataSize + dwImageBase + dwVirtualAddress;
 
-    CloseHandle(hMapping);
-    CloseHandle(hFile);
     return TRUE;
 }
 
@@ -117,31 +104,16 @@ BOOL InjectToPe(LPCTSTR lpName, LPCTSTR lpNewFileName)
     if(!GetWriteAddress(lpName, MessageboxAAddress, &dwNewEnter, &dwWriteAddress, &dwCallShift, &dwOrderAddress))
         return FALSE;
     
-    if(INVALID_HANDLE_VALUE == (hFile = CreateFile(lpName, GENERIC_READ | GENERIC_WRITE,
-                                FILE_SHARE_READ | FILE_SHARE_WRITE,
-                                0,
-                                OPEN_EXISTING,
-                                FILE_FLAG_SEQUENTIAL_SCAN,
-                                0)))
-    {
-        return FALSE;
-    }
+#ifdef UNICODE
+    string fileName = UnicodeToAnsi(lpName);
+    string fileNewName = UnicodeToAnsi(lpNewFileName);
+#else
+    string fileName = lpName;
+    string fileNewName = lpNewFileName;
+#endif
+    tuple<bool, char*, fstream::pos_type> bin = PE::OpenBinary(fileName);
 
-    if(!(hMapping = CreateFileMapping(hFile, 0, PAGE_READWRITE | SEC_COMMIT, 0, 0, 0)))
-    {
-        CloseHandle(hFile);
-        return FALSE;
-    }
-
-    if(!(basepointer = MapViewOfFile(hMapping, FILE_MAP_READ |FILE_MAP_WRITE|FILE_MAP_COPY, 0, 0, 0)))
-    {
-        CloseHandle(hMapping);
-        CloseHandle(hFile);
-        return FALSE;
-    }
-    printf("%x",_msize((char*)basepointer));
-
-    PIMAGE_DOS_HEADER dos_head = (IMAGE_DOS_HEADER*)basepointer;
+    PIMAGE_DOS_HEADER dos_head = (IMAGE_DOS_HEADER*)get<1>(bin);
     PIMAGE_NT_HEADERS nt = (PIMAGE_NT_HEADERS)((char*)dos_head + dos_head->e_lfanew);
     PIMAGE_OPTIONAL_HEADER option_header = (PIMAGE_OPTIONAL_HEADER)(&(nt->OptionalHeader));
 
@@ -156,13 +128,15 @@ BOOL InjectToPe(LPCTSTR lpName, LPCTSTR lpNewFileName)
     DWORD dwParamMess = dwOrderAddress + CODE_LENGTH;
     memcpy((PBYTE)dos_head + dwWriteAddress + 5, &dwParamMess, 4);
     DWORD dwOriginEntryAddress = option_header->AddressOfEntryPoint + option_header->ImageBase - (dwOrderAddress + CODE_LENGTH);
-    memcpy((PBYTE)dos_head + dwWriteAddress + 18, &dwOriginEntryAddress + CODE_LENGTH, 4);
+    memcpy((PBYTE)dos_head + dwWriteAddress + 18, &dwOriginEntryAddress, 4);
     //修改入口地址
     option_header->AddressOfEntryPoint = dwNewEnter;
     FILE* fpp = NULL;
-    _wfopen_s(&fpp, (wchar_t *)lpNewFileName, L"wb+");
-    // printf("%x",_msize((char*)dos_head));
-    fwrite((PBYTE)dos_head, sizeof(char), _msize((char*)dos_head)/sizeof(char), fpp);
+    if(0 != fopen_s(&fpp, fileNewName.c_str(), "wb+"))
+        return FALSE;
+    
+    printf("%x\n",_msize((char*)dos_head));
+    fwrite((PBYTE)dos_head, sizeof(char), get<2>(bin), fpp);
     fflush(fpp);
     fclose(fpp);
     return TRUE;
@@ -182,7 +156,6 @@ void main(int argc, TCHAR *argv[])
     TCHAR szOldName[MAX_PATH], szNewName[MAX_PATH];
     _stprintf(szOldName, _T("%s"), _T("defiler.2.exe"));
     _stprintf(szNewName, _T("%s__.exe"), szOldName);
-    GetEntryAddressFromExe(szOldName);
     if(!InjectToPe(szOldName, szNewName))
         MessageBoxA(NULL, "Error ", "Error", MB_OK);
     else

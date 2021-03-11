@@ -126,27 +126,3 @@ DWORD GetProcPid(wchar_t *szExeName)
     }
     return 0;
 }
-
-wstring AnsiToUnicode(string strAnsi)
-{
-	if (strAnsi.empty())
-	{
-		return L"";
-	}
-	// ansi to unicode
-	int nwcsLen = MultiByteToWideChar(CP_ACP, NULL, strAnsi.c_str(), strAnsi.length(), NULL, 0);
-	wchar_t* pwszString = new wchar_t[nwcsLen + 1];
-
-	MultiByteToWideChar(CP_ACP, NULL, strAnsi.c_str(), strAnsi.length(), pwszString, nwcsLen);
-	pwszString[nwcsLen] = '\0';
-
-	wstring wstrRet = pwszString;
-
-	if (pwszString != NULL)
-	{
-		delete []pwszString;
-		pwszString = NULL;
-	}
-
-	return wstrRet;
-}
