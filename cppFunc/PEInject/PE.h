@@ -23,6 +23,7 @@ namespace PE
 		IMAGE_NT_HEADERS32 inh32;
 		std::vector<IMAGE_SECTION_HEADER> ish;
 		std::vector<std::shared_ptr<char>> Sections;
+		IMAGE_EXPORT_DIRECTORY ies;
 		void set_sizes(size_t, size_t, size_t, size_t, size_t);
 	};
 

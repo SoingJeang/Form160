@@ -44,9 +44,12 @@ namespace PE
 	PE_FILE ParsePE(const char* PE)
 	{
 		PE_FILE pefile{};
+		// DOS Header
 		memcpy_s(&pefile.ids, sizeof(IMAGE_DOS_HEADER), PE, sizeof(IMAGE_DOS_HEADER));
+		// NT Header
 		memcpy_s(&pefile.inh32, sizeof(IMAGE_NT_HEADERS32), PE + pefile.ids.e_lfanew, sizeof(IMAGE_NT_HEADERS32)); // address of PE header = e_lfanew
 		size_t stub_size = pefile.ids.e_lfanew - 0x3c - 0x4; // 0x3c offet of e_lfanew
+		// DOS_SUB
 		pefile.MS_DOS_STUB = vector<char>(stub_size);
 		memcpy_s(pefile.MS_DOS_STUB.data(), stub_size, (PE + 0x3c + 0x4), stub_size);
 		if (pefile.inh32.OptionalHeader.Magic != IMAGE_NT_OPTIONAL_HDR32_MAGIC)
@@ -78,11 +81,14 @@ namespace PE
 		{
 			sections_size += pefile.ish[i].SizeOfRawData;
 		}
+		// EXPORT DIRECTORY
+		memcpy_s(&pefile.ies, sizeof(IMAGE_EXPORT_DIRECTORY), (LPVOID)pefile.inh32.OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress, sizeof(IMAGE_EXPORT_DIRECTORY));
 
 		pefile.set_sizes(sizeof(pefile.ids), stub_size, sizeof(pefile.inh32), number_of_sections * sizeof(IMAGE_SECTION_HEADER), sections_size);
 
 		return pefile;
 	}
+
 
 	void WriteBinary(PE_FILE pefile, std::string file_name, size_t size)
 	{

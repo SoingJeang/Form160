@@ -1,13 +1,5 @@
 #include "peInject.h"
-#include <stdio.h>
-#include <tchar.h>
-#include <windows.h>
-#include <fstream>
-#include <future>
-#include <string>
-#include <filesystem>
 #include "PE.h"
-#include "common.h"
 
 using namespace std;
 #pragma comment (lib, "user32.lib")
@@ -140,24 +132,4 @@ BOOL InjectToPe(LPCTSTR lpName, LPCTSTR lpNewFileName)
     fflush(fpp);
     fclose(fpp);
     return TRUE;
-}
-
-void main(int argc, TCHAR *argv[])
-{
-    // if (argc < 2)
-    // {
-    //     MessageBoxA(NULL, "Parameater must 2!", "Error", MB_OK);
-    //     return;
-    // }
-    
-    // byte aa[4] = {};
-    // DWORD dwA= 0x00401000;
-    // memcpy(aa,(DWORD *)&dwA, 4);
-    TCHAR szOldName[MAX_PATH], szNewName[MAX_PATH];
-    _stprintf(szOldName, _T("%s"), _T("defiler.2.exe"));
-    _stprintf(szNewName, _T("%s__.exe"), szOldName);
-    if(!InjectToPe(szOldName, szNewName))
-        MessageBoxA(NULL, "Error ", "Error", MB_OK);
-    else
-        MessageBoxA(NULL, "Success", "Success", MB_OK);
 }
