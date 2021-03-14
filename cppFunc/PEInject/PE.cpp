@@ -10,6 +10,8 @@ align_up(std::size_t value, std::size_t alignment) noexcept
 }
 
 
+
+
 namespace PE
 {
 	void PE_FILE::set_sizes(size_t size_ids_, size_t size_dos_stub_, size_t size_inh32_, size_t size_ish_, size_t size_sections_)
@@ -39,6 +41,21 @@ namespace PE
 			flag = true;
 		}
 		return make_tuple(flag, bin, size);
+	}
+
+	std::size_t RVAToOffset(PE_FILE pefile, size_t virtualAddress)
+	{
+		std::size_t retAddress = 0;
+		for (WORD i = 0; i < pefile.inh32.FileHeader.NumberOfSections; ++i)
+		{
+			if (( virtualAddress >= pefile.ish[i].VirtualAddress) && virtualAddress <= pefile.ish[i].VirtualAddress + pefile.ish[i].SizeOfRawData)
+			{
+				retAddress += pefile.ish[i].VirtualAddress;
+				retAddress += pefile.ish[i].PointerToRawData;
+				return retAddress;
+			}
+		}
+		return retAddress;
 	}
 
 	PE_FILE ParsePE(const char* PE)
@@ -82,7 +99,8 @@ namespace PE
 			sections_size += pefile.ish[i].SizeOfRawData;
 		}
 		// EXPORT DIRECTORY
-		memcpy_s(&pefile.ies, sizeof(IMAGE_EXPORT_DIRECTORY), (LPVOID)pefile.inh32.OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress, sizeof(IMAGE_EXPORT_DIRECTORY));
+		DWORD import_address = RVAToOffset(pefile, pefile.inh32.OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
+		memcpy_s(&pefile.ies, sizeof(IMAGE_EXPORT_DIRECTORY), PE + import_address, sizeof(IMAGE_EXPORT_DIRECTORY));
 
 		pefile.set_sizes(sizeof(pefile.ids), stub_size, sizeof(pefile.inh32), number_of_sections * sizeof(IMAGE_SECTION_HEADER), sections_size);
 

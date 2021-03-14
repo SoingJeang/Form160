@@ -12,6 +12,8 @@ FARPROC GetProcgressAddress(LPCTSTR lpName)
     tuple<bool, char*, fstream::pos_type> bin = PE::OpenBinary(fileName);
     char *pPeFile = get<1>(bin);
     auto parsedPe = PE::ParsePE(pPeFile);
+
+    IMAGE_EXPORT_DIRECTORY ies = parsedPe.ies;
     
     return NULL;
 }
