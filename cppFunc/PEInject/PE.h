@@ -29,6 +29,7 @@ namespace PE
 
 	std::tuple<bool, char*, std::streampos> OpenBinary(std::string filename);
 	PE_FILE ParsePE(const char* PE);
+	std::size_t RVAToOffset(PE_FILE pefile, size_t virtualAddress);
 	void WriteBinary(PE_FILE pefile, std::string file_name, size_t size);
 	void Inject_into_Largest_Tail(char* pe_file, size_t size_of_pe, char xcode[], size_t size_of_xcode, const std::string& out_path);
 	void Inject_into_code_tail(char* pe_file, size_t size_of_pe, char xcode[], size_t size_of_xcode, const std::string& out_path);

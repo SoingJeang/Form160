@@ -43,6 +43,7 @@ namespace PE
 		return make_tuple(flag, bin, size);
 	}
 
+	// 参数2 ： 内存偏移
 	std::size_t RVAToOffset(PE_FILE pefile, size_t virtualAddress)
 	{
 		std::size_t retAddress = 0;
@@ -50,8 +51,8 @@ namespace PE
 		{
 			if (( virtualAddress >= pefile.ish[i].VirtualAddress) && virtualAddress <= pefile.ish[i].VirtualAddress + pefile.ish[i].SizeOfRawData)
 			{
-				retAddress += pefile.ish[i].VirtualAddress;
-				retAddress += pefile.ish[i].PointerToRawData;
+				// 文件偏移 = 该段的 PointerToRawData + （内存偏移 - 该段起始的RVA(VirtualAddress)）
+				retAddress = pefile.ish[i].PointerToRawData + (virtualAddress - pefile.ish[i].VirtualAddress);
 				return retAddress;
 			}
 		}
