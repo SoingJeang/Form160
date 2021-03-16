@@ -13,6 +13,9 @@ CRACKME3.KEY
 cppFunc/hexToAscii.pdb
 __pycache__/common.cpython-37.pyc
 __pycache__/commonForm.cpython-37.pyc
+cppFunc/*.obj
+cppFunc/*.pdb
+cppFunc/*.ilk
 cppFunc/hexToAscii.ilk
 cppFunc/hexToAscii.obj
 cppFunc/hexToAscii.exe
@@ -28,3 +31,13 @@ cppFunc/fortyFirstDll.obj
 cppFunc/41~50/fortyFirstDll.exp
 cppFunc/41~50/fortyFirstDll.lib
 cppFunc/41~50/fortyFirstDll.obj
+cppFunc/1~40/hashDemo/SuperFastHash.cpp
+cppFunc/1~40/hashDemo/SuperFastHash.h
+cppFunc/1~40/hashDemo/hashDemo
+cppFunc/1~40/hashDemo/hashDemo.cpp
+cppFunc/1~40/hashDemo/hashDemo.exe
+cppFunc/1~40/hashDemo/hashDemo.ilk
+cppFunc/1~40/hashDemo/hashDemo.pdb
+cppFunc/PEInject/*.obj
+cppFunc/PEInject/*.pdb
+cppFunc/PEInject/*.ilk
