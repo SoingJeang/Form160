@@ -46,7 +46,8 @@ BOOL EntryFunc()
 
     if (0 == strcmp("Exit1", *ppszName))
     {
-        if(MessageBoxA(NULL, "Do you fickbirne really want to quit?", "Ask!", MB_YESNO))
+        
+        if(6 == MessageBoxA(NULL, "Do you fickbirne really want to quit?", "Ask!", MB_YESNO))
             ExitProcess(0);
     }
 

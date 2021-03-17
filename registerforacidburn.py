@@ -554,8 +554,42 @@ def fortythFrom160():
     helloEnd(checkCode)
 
 def fortythFirstFrom160():
-    # 41.asm
+    # 41.cpp
     pass
+
+def fortythSecondFrom160():
+    # 42.cpp
+    pass
+
+def fortythForthFrom160():
+    listEnterkey = [0x18, 0x25, 0x42, 0x0c, 0x0d, 0x06,
+                    0x36, 0x2b, 0x17, 0x2f, 0x13, 0x82,
+                    0x9b, 0x92, 0x03, 0x63, 0x21, 0x42,
+                    0x5c, 0x29, 0xc7, 0x66, 0x58, 0x0a,
+                    0x28, 0x50]
+    checkName = helloEnter()
+    nameAdd = 0
+    newName = "_" + checkName.lower()
+    nameMul = len(checkName)
+
+    if (nameMul < 6):
+        print("waring: name must has more than 6 num")
+        return
+
+    index = 0
+    for _char in newName:
+        index += 1
+        if index > 6:
+            break
+        intChar = ord(_char) - 0x61
+        if (intChar <= 0x19 and intChar >= 0):
+            nameAdd += listEnterkey[intChar]
+        else:
+            nameAdd += 0x5d
+        nameAdd &= 0xff
+    nameMul *= 0x4a7e
+    checkCode = str(nameAdd) + "-" + str(nameMul)
+    helloEnd(checkCode)
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -569,7 +603,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    fortythFrom160()
+    fortythForthFrom160()
 
 if __name__ == '__main__':
     main()

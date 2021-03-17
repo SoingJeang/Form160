@@ -41,3 +41,7 @@ cppFunc/1~40/hashDemo/hashDemo.pdb
 cppFunc/PEInject/*.obj
 cppFunc/PEInject/*.pdb
 cppFunc/PEInject/*.ilk
+cppFunc/41~50/*.exp
+cppFunc/41~50/*.lib
+cppFunc/41~50/*.ilk
+cppFunc/41~50/*.pdb
