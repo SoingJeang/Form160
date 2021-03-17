@@ -591,6 +591,13 @@ def fortythForthFrom160():
     checkCode = str(nameAdd) + "-" + str(nameMul)
     helloEnd(checkCode)
 
+def fortythFifthFrom160():
+    checkName = helloEnter()
+    nameAdd = 0x37
+    for _char in checkName:
+        nameAdd += ord(_char) << 9
+    helloEnd(nameAdd)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -603,7 +610,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    fortythForthFrom160()
+    fortythFifthFrom160()
 
 if __name__ == '__main__':
     main()
