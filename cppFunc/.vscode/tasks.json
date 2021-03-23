@@ -61,6 +61,26 @@
 			],
 			"group": "build",
 			"detail": "编译器: cl.exe"
+		},
+		{
+			"type": "shell",
+			"label": "多CL 生成 Dll",
+			"command": "cl.exe",
+			"args": [
+				"/LDd",
+				"/Fe:",
+				"${fileDirname}\\${fileBasenameNoExtension}.dll",
+				"${file}",
+				"${fileDirname}\\NotePadOrigin.cpp"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build",
+			"detail": "编译器: cl.exe"
 		}
 	]
 }
