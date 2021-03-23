@@ -64,6 +64,7 @@
         "xutility": "cpp",
         "compare": "cpp",
         "coroutine": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "*.rh": "cpp"
     }
 }
