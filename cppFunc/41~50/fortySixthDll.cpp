@@ -1,10 +1,15 @@
+/*
+ * @Author: Soingjeang
+ * @Date: 2021-03-23 19:36:20
+ * @LastEditors: SoingJeang
+ * @LastEditTime: 2021-03-23 19:36:20
+ * @FilePath: \cppFunc\41~50\fortySixthDll.cpp
+ */
 #include <windows.h>
 #include <iostream>
 #include "Tlhelp32.h"
 #include <tchar.h>
 #include "NotePadOrigin.h"
-
-// 此文件是46的解法
 
 #define DLL_EXPORT __declspec(dllexport)
 #define ASM_DEF    __declspec(naked)
