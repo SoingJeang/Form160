@@ -2,7 +2,6 @@ import numpy
 import datetime
 import random
 import struct
-import random
 import string
 from commonForm import *
 
@@ -598,6 +597,137 @@ def fortythFifthFrom160():
         nameAdd += ord(_char) << 9
     helloEnd(nameAdd)
 
+def fortythSixthFrom160():
+    # see 46dll.cpp
+    pass
+
+def fortythSeventhFrom160():
+    tempEsi = 0
+    listOut = []
+
+    checkName = helloEnter()
+    if(len(checkname) > 0xf):
+        print("name not than 13 code")
+        return
+
+    with open("tasks41~50\due-cm2.dat","wb") as fout:
+        # loop1 for esi == 
+        while tempEsi < 0x1d5:
+            numCode = random.randint(0,9) + 0x30
+            if tempEsi + numCode > 0x1d5:
+                numCode = 0x1d5 - tempEsi
+            listOut.append(numCode)
+            s = struct.pack('B',numCode)
+            fout.write(s)
+            tempEsi += numCode
+        s = struct.pack('B',0x01)
+        fout.write(s)
+        listOut.append(0x01)
+
+        # loop1 for name == 
+        nIndex = 0
+        for _char in checkname:
+            xor_char = ord(_char) ^ listOut[nIndex]
+            s = struct.pack('B',xor_char)
+            fout.write(s)
+            listOut.append(xor_char)
+            nIndex += 1
+        s = struct.pack('B',0x01)
+        fout.write(s)
+        listOut.append(0x01)
+
+        # loop1 for esi == 
+        tempEsi = 0
+        while tempEsi < 0x1b2:
+            numCode = random.randint(0,9) + 0x30
+            if tempEsi + numCode > 0x1b2:
+                numCode = 0x1b2 - tempEsi
+            listOut.append(numCode)
+            s = struct.pack('B',numCode)
+            fout.write(s)
+            tempEsi += numCode
+
+def findNumsEqualValue(listNums, begin, target, listTemp, listExpict):
+    listInsTemp = listTemp[:]
+    if target == 0:
+        listExpict.append(listInsTemp)
+        return
+    if target < 0:
+        return
+
+    for i in range(len(listNums)):
+        if i < begin:
+            continue
+        
+        listInsTemp.append(i)
+        findNumsEqualValue(listNums, i + 1, target - listNums[i], listInsTemp, listExpict)
+        listInsTemp.pop()
+    
+
+def fortythEighthFrom160():
+    # [10,1, 2, 0, 7, 5, 6, 9, a, 
+    #  3, b, c, d, e, f,11,4, 8]
+    listCheckToIn = [ 0x10, 0x01, 0x02, 0x00, 0x07, 0x05, 0x06, 0x09, 0x0a,
+                      0x03, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x11, 0x04, 0x08 ]
+    
+    listCheckToIn = [ 0x03, 0x01, 0x02, 0x09, 0x10, 0x05, 0x06, 0x04, 0x11,
+                      0x07, 0x08, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x00, 0x0f ]
+    listButtonNum = [ 0x16, 0x49, 0x5e, 0x15, 0x27, 0x26, 0x21, 0x25, 0x1D,        # 9
+                      0x59, 0x53, 0x37, 0x31, 0x48, 0x5D, 0x0C, 0x61, 0x52, 0x4D ]
+    
+    listCheckedNum = []
+    checkNum = int(0xF35466 / 0x4D) 
+
+    for i in range(len(listButtonNum) - 1):
+        listCheckedNum.append(listButtonNum[i] * listButtonNum[i + 1] * (i + 1))
+    print(listCheckedNum)
+
+    listExipre = []
+    findNumsEqualValue(listCheckedNum, 0, checkNum, [], listExipre)
+    print(listExipre)
+    checkCode = []
+    if len(listExipre) < 0:
+        print("error")
+        return
+    else:
+        for listExp in listExipre:
+            codeSin = []
+            dd = 0
+            for index in listExp:
+                codeSin.append(listCheckToIn[index])
+                codeSin.sort()
+            print(dd)
+            checkCode.append(codeSin)
+    print(checkCode)
+
+def fortythNinethFrom160():
+    nameCheck = '1LSK2DJF4HGP3QWO5EIR6UTYZ8MXN7CBV9'
+    listNameCheck = [0x41]
+    listPassCheck = [0x53]
+    for _char in nameCheck:
+        listNameCheck.append(ord(_char))
+    passCheck = 'U7CSJKF09NCSDO9SDF09SDRLVK7809S4NF'
+    for _char in passCheck:
+        listPassCheck.append(ord(_char))
+
+    checkName = helloEnter()
+    if(len(checkName) > 8):
+        print("ERROR")
+        return
+    
+    checkCode = ""
+    for _char in checkName:
+        ord_char = ord(_char)
+        if _char > 'Z':
+            ord_char = ord(_char) - 0x20
+        i = 0
+        for i in range(len(listNameCheck)):
+            if ord_char == listNameCheck[i]:
+                checkCode += chr(listPassCheck[i])
+                break
+    helloEnd(checkCode)
+
+    
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -610,7 +740,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    fortythFifthFrom160()
+    fortythNinethFrom160()
 
 if __name__ == '__main__':
     main()
