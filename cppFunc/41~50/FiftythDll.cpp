@@ -2,13 +2,15 @@
  * @Author: Soingjeang
  * @Date: 2021-03-24 20:08:50
  * @LastEditors: SoingJeang
- * @LastEditTime: 2021-03-24 20:19:42
+ * @LastEditTime: 2021-03-25 16:05:17
  * @FilePath: \cppFunc\41~50\FiftythDll.cpp
  */
 #include <windows.h>
 #include <iostream>
+#include <process.h>
 #include "Tlhelp32.h"
 #include <tchar.h>
+#include "NotePadOrigin.h"
 
 #define DLL_EXPORT __declspec(dllexport)
 #define ASM_DEF    __declspec(naked)
@@ -130,7 +132,7 @@ BOOL Exit()
 
 BOOL Init()
 {
-	MessageBoxA(NULL, "Injected! HookProc!", "Success!", MB_OK);
+	MessageBoxA(NULL, "Injected! HookProc!", "Success!!!", MB_OK);
 	EnableDebugPriv(SE_DEBUG_NAME);
 	//DWORD dwPid = ::GetCurrentProcessId();
 	g_hProcess = GetCurrentProcess();
@@ -158,7 +160,6 @@ ASM_DEF void HookProc()
 
 		popad
 		popfd
-        pop eax
 		jmp		[g_ExeCallFunctionAddr]
     }
 }
@@ -217,12 +218,32 @@ void WriteMemory(LPVOID lpAddress, BYTE *pcode, int length)
 	VirtualProtectEx(g_hProcess, lpAddress, length, dwOldProtect, NULL);
 }
 
+PCHAR g_szRedigister = "Registered";
+unsigned int __stdcall SendDialogMeesageThread(void* pParam)
+{
+	while (TRUE)
+	{
+		LPCTSTR szDialog = _T("Duelist's Crackme #5");
+		HWND hDialog = GetExpireWindow(NULL, szDialog);
+		// "Duelist's Crackme #5"
+		SendDlgItemMessageA(hDialog, 3, 0x0C, NULL, (LPARAM)g_szRedigister);
+		// char szInfo[1024];
+		// sprintf(szInfo, "xx: %p", hDialog);
+		// MessageBoxA(NULL, szInfo, "xxx", MB_OK);
+		Sleep(1000);
+	}
+	
+	return 0;
+}
+
 // 钩子进来C级别入口
 void JudgeFunc(uintptr_t eax)
 {
     HookOff();
-
     // using code here
+	unsigned int nThreadID;
+	_beginthreadex(NULL, 0, SendDialogMeesageThread, NULL, NULL, &nThreadID);
+    // BYTE 
 
     HookOn();
 }

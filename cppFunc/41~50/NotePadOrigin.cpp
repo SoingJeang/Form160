@@ -2,7 +2,7 @@
 * @Author: Soingjeang
 * @Date: 2021-03-19 17:40:55
  * @LastEditors: SoingJeang
- * @LastEditTime: 2021-03-23 19:11:32
+ * @LastEditTime: 2021-03-25 16:04:14
  * @FilePath: \cppFunc\41~50\NotePadOrigin.cpp
 */
 
@@ -161,6 +161,7 @@ typedef struct _EnumChindWinArg
 {
 	HWND hChildWindow;
 	LPCTSTR lszClassName;
+	LPCTSTR lszTitleName;
 	BOOL bFound;
 }EnumChindWinArg, *PEnumChindWinArg;
 
@@ -181,13 +182,19 @@ BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 BOOL CALLBACK EnumChildWindowsProc(HWND hwnd, LPARAM lParam)
 {
 	PEnumChindWinArg pEnumChild = (PEnumChindWinArg)lParam;
-	TCHAR szClassName[MAX_PATH] = { 0 };
-	GetClassName(hwnd, szClassName, MAX_PATH);
-	_tcsupr_s(szClassName, MAX_PATH);
-	if (_tcscmp(pEnumChild->lszClassName, szClassName)== 0)
+	TCHAR szBuffer[MAX_PATH] = { 0 };
+	BOOL bFindClass = NULL!=pEnumChild->lszClassName, bFindTitle = NULL!=pEnumChild->lszTitleName;
+
+	::GetClassName(hwnd, szBuffer, MAX_PATH - 1);
+	_tcsupr_s(szBuffer, MAX_PATH - 1);
+	if (!bFindClass || _tcscmp(pEnumChild->lszClassName, szBuffer)== 0)
 	{
-		pEnumChild->hChildWindow = hwnd;
-		return FALSE;
+		::GetWindowText(hwnd, szBuffer, MAX_PATH - 1);
+		if (!bFindTitle || _tcscmp(pEnumChild->lszTitleName, szBuffer)== 0)
+		{
+			pEnumChild->hChildWindow = hwnd;
+			return FALSE;
+		}
 	}
 
 	// EnumChildWindows(hwnd, EnumChildWindowsProc, lParam);
@@ -229,17 +236,34 @@ VOID GetWinDowHandle(LPCTSTR lszTitleName, LPCTSTR lszClassName, PHANDLE phandle
 	}
 }
 
-HWND GetExpireWindow()
+HWND GetExpireWindow(LPCTSTR szClassName, LPCTSTR szTitleName)
 {
 	EnumWindowsArg eWArg;
 	EnumChindWinArg eCArg;
+	TCHAR szBuffer[MAX_PATH];
+	BOOL bFindClass = NULL!=szClassName, bFindTitle = NULL!=szTitleName;
 
 	eWArg.dwProcessId = GetCurrentProcessId();
 	eWArg.hTopWindow = NULL;
 	EnumWindows(EnumWindowsProc, (LPARAM)&eWArg);
+	
 	if (eWArg.hTopWindow != NULL)
 	{
-		eCArg.lszClassName = _T("EDIT");
+		::GetClassName(eWArg.hTopWindow, szBuffer, MAX_PATH - 1);
+		if(!bFindClass || 0 == _tcscmp(szClassName, szBuffer))
+		{
+			::GetWindowText(eWArg.hTopWindow, szBuffer, MAX_PATH - 1);
+			// sprintf(szInfo, "Title:%s, len:%d\nTitle:%s, len:%d", szBuffer, _tcslen(szBuffer), szTitleName, _tcslen(szTitleName));
+			// MessageBoxA(NULL, szInfo, "pid", MB_OK);
+			if(!bFindTitle || 0 == _tcscmp(szTitleName, szBuffer))
+			{
+				return eWArg.hTopWindow;
+			}
+				
+		}
+
+		eCArg.lszClassName = szClassName;
+		eCArg.lszTitleName = szTitleName;
 		eCArg.hChildWindow = NULL;
 		EnumChildWindows(eWArg.hTopWindow, EnumChildWindowsProc, (LPARAM)&eCArg);
 	}
@@ -252,7 +276,7 @@ int WINAPI FileOpenProc()
 	int nFileLength = 0;
 	TCHAR szFilePath[MAX_PATH] = {}, szBuffer[1024];
 	std::ifstream mFileIn;
-	HWND hwndEdit = GetExpireWindow();
+	HWND hwndEdit = GetExpireWindow(_T("EDIT"), NULL);
 	if (NULL == hwndEdit)
 		return nRet;
 
@@ -280,7 +304,7 @@ int WINAPI FileSaveProc()
 	int nRet = 0;
 	TCHAR szFilePath[MAX_PATH] = {};
 	std::ofstream mFileOut;
-	HWND hwndEdit = GetExpireWindow();
+	HWND hwndEdit = GetExpireWindow(_T("EDIT"), NULL);
 	if (NULL == hwndEdit)
 		return nRet;
 

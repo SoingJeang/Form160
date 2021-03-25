@@ -1,3 +1,10 @@
+/*
+ * @Author: Soingjeang
+ * @Date: 2021-03-10 11:08:24
+ * @LastEditors: SoingJeang
+ * @LastEditTime: 2021-03-25 14:16:38
+ * @FilePath: \cppFunc\OpenSuspendMain.cpp
+ */
 #include <windows.h>
 #include <tchar.h>
 #pragma comment(lib, "User32.lib")
@@ -8,7 +15,7 @@ BOOL InjectInSuspend(HANDLE hProcess, TCHAR *pszDLlPath);
 
 void main(int argc, TCHAR *argv[])
 {
-    TCHAR szProgram[MAX_PATH] = { "41~50\\defiler.2.exe" }, szDll[MAX_PATH] = {"fortySecondDll.dll"};
+    TCHAR szProgram[MAX_PATH] = { "41~50\\DueList.5_dump_.exe" }, szDll[MAX_PATH] = {"FiftythDll.dll"};
     HANDLE hProcess = NULL, hThread = NULL;
     if (argc < 3)
     {
