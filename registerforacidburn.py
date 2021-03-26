@@ -727,6 +727,51 @@ def fortythNinethFrom160():
                 break
     helloEnd(checkCode)
 
+def fiftythFrom160():
+    # 50dll.cpp
+    pass
+
+def fiftyFirstFrom160():
+    blockCheckPre = 0x36455544
+    blockCodePre = 0x4071885
+    blockCheckAfter = 0x43534952
+    blockCodeAfter = 0x4b00d127
+
+    rolPre = 0
+    rolAfter = 0
+    while (blockCheckPre != blockCodePre):
+        rolPre += 1
+        al = blockCodePre & 0xff
+        blockCodePre -= al
+        al = al - rolPre & 0xff
+        blockCodePre += al
+
+        ah = blockCodePre & 0xff00
+        ah = int(ah / 0x100)
+        blockCodePre -= ah * 0x100
+        ah = ah ^ al
+        blockCodePre += ah * 0x100
+        blockCodePre & 0xffffffff
+
+        blockCodePre = circular_shift_right(blockCodePre, 6, 32)
+        # blockCheckPre = circular_shift_left(blockCheckPre, 6, 32)
+        # ah = blockCheckPre * 0xff00 / 0xff
+        # al = blockCheckPre * 0xff
+        # ah = ah ^ al *0xff
+        # blockCheckPre = blockCheckPre - blockCheckPre * 0xff00 + ah
+        
+
+    # while (blockCheckAfter != blockCodeAfter):
+    #     blockCheckAfter = circular_shift_left(blockCheckAfter, 6, 32)
+    #     ah = blockCheckAfter * 0xff00 / 0xff
+    #     al = blockCheckAfter * 0xff
+    #     ah = ah ^ al *0xff
+    #     blockCheckAfter = blockCheckAfter - blockCheckAfter * 0xff00 + ah
+    #     rolAfter += 1
+
+    print(rolPre)
+    #see 51.cpp
+    
     
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -740,7 +785,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    fortythNinethFrom160()
+    fiftyFirstFrom160()
 
 if __name__ == '__main__':
     main()

@@ -65,6 +65,8 @@
         "compare": "cpp",
         "coroutine": "cpp",
         "iterator": "cpp",
-        "*.rh": "cpp"
+        "*.rh": "cpp",
+        "map": "cpp",
+        "xtree": "cpp"
     }
 }
