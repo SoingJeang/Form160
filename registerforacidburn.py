@@ -771,7 +771,10 @@ def fiftyFirstFrom160():
 
     print(rolPre)
     #see 51.cpp
-    
+
+def fiftySecondFrom160():
+    # see 52.cpp
+    pass
     
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
