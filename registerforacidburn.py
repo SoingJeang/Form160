@@ -775,7 +775,40 @@ def fiftyFirstFrom160():
 def fiftySecondFrom160():
     # see 52.cpp
     pass
+
+def fiftyThirdFrom160():
+    # see 53.cpp but not dewcrypt
+    pass
+
+def fiftyFourthFrom160():
+    listNameVar = list("LANNYDIBANDINGINANAKEKHYANGNGENT")
+    listCodeVar = list("LANNY5646521")
+
+    nInterCode = 0
+    checkName = helloEnter()
+    checkCode = ""
+    listCheckName = list(checkName)
+
+    for index in range(len(checkName)):
+        nInterCode += ord(listCheckName[index])
+        nInterCode = nInterCode << 8
+        nInterCode &= 0xffffffff
+        nInterCode += ord(listNameVar[index])
+        
+        if(nInterCode & 0x80000000):
+            nInterCode ^= 0xffffffff
+            nInterCode += 1
+    nInterCode ^= 0x12345678
+
+    lenInterCode = len(list(str(nInterCode)))
     
+    for index in range(lenInterCode):
+        checkCode += listCodeVar[nInterCode % 0xA]
+        nInterCode = int(nInterCode / 0xA)
+
+    helloEnd(checkCode)
+    
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -788,7 +821,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    fiftyFirstFrom160()
+    fiftyFourthFrom160()
 
 if __name__ == '__main__':
     main()
