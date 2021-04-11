@@ -807,7 +807,53 @@ def fiftyFourthFrom160():
         nInterCode = int(nInterCode / 0xA)
 
     helloEnd(checkCode)
-    
+
+def fiftyFifthFrom160():
+    # see 55.cpp but unknow mean,maybe just change dialog function
+    pass
+
+def fiftySixFrom160():
+    # unknow mean
+    pass
+
+def fiftySeventhFrom160():
+    nButton = random.randint(1,8)
+    nButton = 8
+    # String
+    if nButton == 1:
+        print("Button: " + "String")
+        print("Key:    " + "String")
+    # Variant
+    elif nButton == 2:
+        print("Button: " + "Variant")
+        print("Key:    " + "Empty")
+    # Long
+    elif nButton == 3:
+        print("Button: " + "Long")
+        print("Key:    " + str(0x2C2FAE))
+    # Currency
+    elif nButton == 4:
+        print("Button: " + "Currency")
+        print("Key:    " + str(0x8180754 / 10000))
+    # Single
+    elif nButton == 5:
+        print("Button: " + "Single")
+        print("Key:    " + str(9764317691904))
+    # Double
+    elif nButton == 6:
+        print("Button: " + "Double")
+        print("Key:    " + str(147258369789456000))
+    # Integer
+    elif nButton == 7:
+        print("Button: " + "Integer")
+        print("Key:    " + str(0x5BEF))
+    # Byte
+    elif nButton == 8:
+        print("Button: " + "Byte")
+        print("Key:    " + str(0xEF))
+
+def fiftyEighthFrom160():
+    print("Key:    " + "use hexeditor to look for hardcoded codes")
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -821,7 +867,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    fiftyFourthFrom160()
+    fiftySeventhFrom160()
 
 if __name__ == '__main__':
     main()
