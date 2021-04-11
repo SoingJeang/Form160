@@ -3,6 +3,7 @@ import datetime
 import random
 import struct
 import string
+import datetime
 from commonForm import *
 
 def firstFrom160():
@@ -855,6 +856,37 @@ def fiftySeventhFrom160():
 def fiftyEighthFrom160():
     print("Key:    " + "use hexeditor to look for hardcoded codes")
 
+def fiftyNinthFrom160():
+    CheckNum = [
+        84, 104, 105, 115, 32, 105, 115, 32, 116, 104, 101, 32, 
+        99, 111, 114, 114, 101, 99, 116, 32, 99, 111, 100, 101,
+    ]
+    CheckCode = ""
+    for i in CheckNum:
+        CheckCode += chr(i)
+    print(CheckCode)
+
+def SixtythFrom160():
+    CheckNum = [
+        0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65  
+    ]
+
+    CheckCode = ""
+    for i in CheckNum:
+        CheckCode += chr(i)
+    print(CheckCode)
+
+def SixtyFirstFrom160():
+    mYear = datetime.date.today().year
+    mYear %= 100
+    mMonth = datetime.date.today().month
+    mDay = datetime.date.today().day
+    mMonth = 5
+    mDay = 21
+
+    CheckCode = str(mYear) + " " + str((mYear + mMonth)*mMonth) + " " + str(((mYear + mMonth)*mMonth + mDay) * mDay)
+    print(CheckCode)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -867,7 +899,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    fiftySeventhFrom160()
+    SixtyFirstFrom160()
 
 if __name__ == '__main__':
     main()
