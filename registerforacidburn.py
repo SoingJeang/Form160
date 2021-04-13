@@ -919,6 +919,22 @@ def SixtyfourthFrom160():
     checkCode = str(nTotal)
     helloEnd(nTotal)
     
+def SixtySixthFrom160():
+    checkName = helloEnter()
+    lenCheckName = len(checkName)
+    listCheckName = list(checkName)
+    checkStr = ""
+
+    for index in range(10):
+        if(index + 10 < lenCheckName):
+            checkStr += chr((ord(listCheckName[index + 10]) ^ ord(listCheckName[index])) % 10 + 0x30)
+        else:
+            if(index < lenCheckName):
+                checkStr += chr((0x20 ^ ord(listCheckName[index])) % 10 + 0x30)
+            else:
+                checkStr += chr((0x20 ^ 0x20) % 10 + 0x30)
+    checkStr += '6'
+    helloEnd(int(checkStr))
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
