@@ -864,7 +864,7 @@ def fiftyNinthFrom160():
     CheckCode = ""
     for i in CheckNum:
         CheckCode += chr(i)
-    print(CheckCode)
+    print("Key:    " + CheckCode)
 
 def SixtythFrom160():
     CheckNum = [
@@ -874,7 +874,7 @@ def SixtythFrom160():
     CheckCode = ""
     for i in CheckNum:
         CheckCode += chr(i)
-    print(CheckCode)
+    print("Key:    " + CheckCode)
 
 def SixtyFirstFrom160():
     mYear = datetime.date.today().year
@@ -885,7 +885,40 @@ def SixtyFirstFrom160():
     mDay = 21
 
     CheckCode = str(mYear) + " " + str((mYear + mMonth)*mMonth) + " " + str(((mYear + mMonth)*mMonth + mDay) * mDay)
-    print(CheckCode)
+    print("Key:    " + CheckCode)
+
+def SixtySecondFrom160():
+    checkName = helloEnter()
+    listCheckName = list(checkName)
+    checkCode = ""
+
+    for i in range(len(checkName)):
+        if i % 2 == 0:
+            strCheckNum = str(ord(listCheckName[i]))
+            nTemp = 0
+            for _single in strCheckNum:
+                nTemp += int(_single)
+            checkCode +=  str(nTemp)
+        else:
+            checkCode += listCheckName[i]
+    helloEnd(checkCode)
+    
+def SixtyThirdFrom160():
+    CheckCode = "Correct...Error"
+    print("Key:    " + CheckCode)
+
+def SixtyfourthFrom160():
+    checkName = helloEnter()
+
+    nTotal = 0
+    checkUpper = checkName.upper()
+    for _char in checkUpper:
+        nTotal += (ord(_char) - 0x40) * 0x82
+        nTotal += 0x50 << 4
+    
+    checkCode = str(nTotal)
+    helloEnd(nTotal)
+    
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -899,7 +932,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    SixtyFirstFrom160()
+    SixtyfourthFrom160()
 
 if __name__ == '__main__':
     main()
