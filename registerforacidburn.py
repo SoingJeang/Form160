@@ -936,6 +936,48 @@ def SixtySixthFrom160():
     checkStr += '6'
     helloEnd(int(checkStr))
 
+def SixtySeventhFrom160():
+    checkName = helloEnter()
+    lenCheckName = len(checkName)
+    listCheckName = list(checkName)
+    checkCode = ""
+
+    for index in range(lenCheckName):
+        codeChar = ord(listCheckName[index]) ^ index
+        codeChar += (lenCheckName) ^ index
+        if codeChar < 0x20:
+            codeChar += 0x20
+        elif codeChar > 0x80:
+            codeChar = 0x20
+        checkCode += chr(codeChar)
+    checkCode = checkCode[::-1]
+    helloEnd(checkCode)
+
+def SixtyEighthFrom160():
+    bVerify = "203945709398475029384750293875577934765620110289347563929867122287863095762304984875020398746563"
+    listVerify = list(bVerify)
+    checkName = helloEnter()
+    checoCode = ""
+
+    for _char in checkName:
+        checoCode += listVerify[ord(_char) - 0x20]
+
+    helloEnd(checoCode)
+
+def SixtyNinthFrom160():
+    SixtyEighthFrom160()
+
+def SeventyFrom160():
+    checkName = helloEnter()
+    listCheckName = list(checkName)
+    checkCode = ""
+
+    for i in range(8):
+        codeIndex = (ord(listCheckName[i]) ^ ord(listCheckName[7 - i])) % 8
+        codeChar = listCheckName[codeIndex]
+        checkCode += codeChar
+    helloEnd(checkCode)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -948,7 +990,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    SixtyfourthFrom160()
+    SeventyFrom160()
 
 if __name__ == '__main__':
     main()
