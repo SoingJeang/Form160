@@ -967,7 +967,7 @@ def SixtyEighthFrom160():
 def SixtyNinthFrom160():
     SixtyEighthFrom160()
 
-def SeventyFrom160():
+def SeventythFrom160():
     checkName = helloEnter()
     listCheckName = list(checkName)
     checkCode = ""
@@ -977,6 +977,11 @@ def SeventyFrom160():
         codeChar = listCheckName[codeIndex]
         checkCode += codeChar
     helloEnd(checkCode)
+
+def SeventyFirstFrom160():
+    checkName = helloEnter()
+    checkCode = checkName + checkName + "625g72"
+    print(checkCode)
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -990,7 +995,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    SeventyFrom160()
+    SeventyFirstFrom160()
 
 if __name__ == '__main__':
     main()
