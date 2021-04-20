@@ -808,6 +808,18 @@ def fiftyFourthFrom160():
 
     helloEnd(checkCode)
     
+def SixtyFifthFrom160():
+    checkName = helloEnter()
+    if (len(checkName) < 5):
+        print("error less than 5")
+        return 
+
+    checkCode = ""
+    index = 0
+    for _char in checkName:
+        checkCode += chr(ord(_char) - index)
+        index+=1
+    helloEnd(checkCode)
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -821,7 +833,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    fiftyFourthFrom160()
+    SixtyFifthFrom160()
 
 if __name__ == '__main__':
     main()
