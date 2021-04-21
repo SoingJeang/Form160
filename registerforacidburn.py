@@ -996,6 +996,41 @@ def SeventyFirstFrom160():
     checkCode = checkName + checkName + "625g72"
     print(checkCode)
 
+def SeventySecondFrom160():
+    CheckCode = "RIDERSINTHENIGHT"
+    print("Key:    " + CheckCode)
+
+def SeventyThirdFrom160():
+    checkName = helloEnter()
+    codeNum = 0x2b67
+    for _char in checkName:
+        codeNum += 0x2b67
+        codeNum += ord(_char)
+    helloEnd(codeNum)
+
+def SeventyFourthFrom160():
+    CheckCode = "Regcode"
+    print("Key:    " + CheckCode)
+
+def SeventyFifthFrom160():
+    ebx = 0x49390305
+    esi = 0x48631220
+    checkName = "1234" #helloEnter()
+    checkCode = ""
+
+    for _char in checkName:
+        ordNum = ord(_char)
+        ebx ^= ordNum
+        esi ^= ebx
+        if ebx % 2 == 1:
+            ebx = shift_arithmetic_right(ebx, 1) 
+            ebx ^= 0x1200311
+        else:
+            ebx = shift_arithmetic_right(ebx, 1) 
+    checkCode = hex(ebx & 0xffff)[2:] + "-" + hex(ebx >> 0x10)[2:] + "-" + hex(esi & 0xffff)[2:] + "-" + hex(esi >> 0x10)[2:]
+    checkCode = checkCode.upper()
+    print(checkCode)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -1008,7 +1043,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    SeventyFirstFrom160()
+    SeventyFifthFrom160()
 
 if __name__ == '__main__':
     main()
