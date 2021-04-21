@@ -3,6 +3,7 @@ import datetime
 import random
 import struct
 import string
+import datetime
 from commonForm import *
 
 def firstFrom160():
@@ -807,7 +808,117 @@ def fiftyFourthFrom160():
         nInterCode = int(nInterCode / 0xA)
 
     helloEnd(checkCode)
+
+def fiftyFifthFrom160():
+    # see 55.cpp but unknow mean,maybe just change dialog function
+    pass
+
+def fiftySixFrom160():
+    # unknow mean
+    pass
+
+def fiftySeventhFrom160():
+    nButton = random.randint(1,8)
+    nButton = 8
+    # String
+    if nButton == 1:
+        print("Button: " + "String")
+        print("Key:    " + "String")
+    # Variant
+    elif nButton == 2:
+        print("Button: " + "Variant")
+        print("Key:    " + "Empty")
+    # Long
+    elif nButton == 3:
+        print("Button: " + "Long")
+        print("Key:    " + str(0x2C2FAE))
+    # Currency
+    elif nButton == 4:
+        print("Button: " + "Currency")
+        print("Key:    " + str(0x8180754 / 10000))
+    # Single
+    elif nButton == 5:
+        print("Button: " + "Single")
+        print("Key:    " + str(9764317691904))
+    # Double
+    elif nButton == 6:
+        print("Button: " + "Double")
+        print("Key:    " + str(147258369789456000))
+    # Integer
+    elif nButton == 7:
+        print("Button: " + "Integer")
+        print("Key:    " + str(0x5BEF))
+    # Byte
+    elif nButton == 8:
+        print("Button: " + "Byte")
+        print("Key:    " + str(0xEF))
+
+def fiftyEighthFrom160():
+    print("Key:    " + "use hexeditor to look for hardcoded codes")
+
+def fiftyNinthFrom160():
+    CheckNum = [
+        84, 104, 105, 115, 32, 105, 115, 32, 116, 104, 101, 32, 
+        99, 111, 114, 114, 101, 99, 116, 32, 99, 111, 100, 101,
+    ]
+    CheckCode = ""
+    for i in CheckNum:
+        CheckCode += chr(i)
+    print("Key:    " + CheckCode)
+
+def SixtythFrom160():
+    CheckNum = [
+        0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65  
+    ]
+
+    CheckCode = ""
+    for i in CheckNum:
+        CheckCode += chr(i)
+    print("Key:    " + CheckCode)
+
+def SixtyFirstFrom160():
+    mYear = datetime.date.today().year
+    mYear %= 100
+    mMonth = datetime.date.today().month
+    mDay = datetime.date.today().day
+    mMonth = 5
+    mDay = 21
+
+    CheckCode = str(mYear) + " " + str((mYear + mMonth)*mMonth) + " " + str(((mYear + mMonth)*mMonth + mDay) * mDay)
+    print("Key:    " + CheckCode)
+
+def SixtySecondFrom160():
+    checkName = helloEnter()
+    listCheckName = list(checkName)
+    checkCode = ""
+
+    for i in range(len(checkName)):
+        if i % 2 == 0:
+            strCheckNum = str(ord(listCheckName[i]))
+            nTemp = 0
+            for _single in strCheckNum:
+                nTemp += int(_single)
+            checkCode +=  str(nTemp)
+        else:
+            checkCode += listCheckName[i]
+    helloEnd(checkCode)
     
+def SixtyThirdFrom160():
+    CheckCode = "Correct...Error"
+    print("Key:    " + CheckCode)
+
+def SixtyfourthFrom160():
+    checkName = helloEnter()
+
+    nTotal = 0
+    checkUpper = checkName.upper()
+    for _char in checkUpper:
+        nTotal += (ord(_char) - 0x40) * 0x82
+        nTotal += 0x50 << 4
+    
+    checkCode = str(nTotal)
+    helloEnd(nTotal)
+
 def SixtyFifthFrom160():
     checkName = helloEnter()
     if (len(checkName) < 5):
@@ -820,6 +931,70 @@ def SixtyFifthFrom160():
         checkCode += chr(ord(_char) - index)
         index+=1
     helloEnd(checkCode)
+    
+def SixtySixthFrom160():
+    checkName = helloEnter()
+    lenCheckName = len(checkName)
+    listCheckName = list(checkName)
+    checkStr = ""
+
+    for index in range(10):
+        if(index + 10 < lenCheckName):
+            checkStr += chr((ord(listCheckName[index + 10]) ^ ord(listCheckName[index])) % 10 + 0x30)
+        else:
+            if(index < lenCheckName):
+                checkStr += chr((0x20 ^ ord(listCheckName[index])) % 10 + 0x30)
+            else:
+                checkStr += chr((0x20 ^ 0x20) % 10 + 0x30)
+    checkStr += '6'
+    helloEnd(int(checkStr))
+
+def SixtySeventhFrom160():
+    checkName = helloEnter()
+    lenCheckName = len(checkName)
+    listCheckName = list(checkName)
+    checkCode = ""
+
+    for index in range(lenCheckName):
+        codeChar = ord(listCheckName[index]) ^ index
+        codeChar += (lenCheckName) ^ index
+        if codeChar < 0x20:
+            codeChar += 0x20
+        elif codeChar > 0x80:
+            codeChar = 0x20
+        checkCode += chr(codeChar)
+    checkCode = checkCode[::-1]
+    helloEnd(checkCode)
+
+def SixtyEighthFrom160():
+    bVerify = "203945709398475029384750293875577934765620110289347563929867122287863095762304984875020398746563"
+    listVerify = list(bVerify)
+    checkName = helloEnter()
+    checoCode = ""
+
+    for _char in checkName:
+        checoCode += listVerify[ord(_char) - 0x20]
+
+    helloEnd(checoCode)
+
+def SixtyNinthFrom160():
+    SixtyEighthFrom160()
+
+def SeventythFrom160():
+    checkName = helloEnter()
+    listCheckName = list(checkName)
+    checkCode = ""
+
+    for i in range(8):
+        codeIndex = (ord(listCheckName[i]) ^ ord(listCheckName[7 - i])) % 8
+        codeChar = listCheckName[codeIndex]
+        checkCode += codeChar
+    helloEnd(checkCode)
+
+def SeventyFirstFrom160():
+    checkName = helloEnter()
+    checkCode = checkName + checkName + "625g72"
+    print(checkCode)
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -833,7 +1008,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    SixtyFifthFrom160()
+    SeventyFirstFrom160()
 
 if __name__ == '__main__':
     main()
