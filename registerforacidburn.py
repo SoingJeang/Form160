@@ -1022,13 +1022,69 @@ def SeventyFifthFrom160():
         ordNum = ord(_char)
         ebx ^= ordNum
         esi ^= ebx
+        lastNum = ebx & 1
         if ebx % 2 == 1:
             ebx = shift_arithmetic_right(ebx, 1) 
+            if ebx & 0x8fffffff:
+                ebx += lastNum
             ebx ^= 0x1200311
         else:
             ebx = shift_arithmetic_right(ebx, 1) 
+            if ebx & 0x8fffffff:
+                ebx += lastNum
     checkCode = hex(ebx & 0xffff)[2:] + "-" + hex(ebx >> 0x10)[2:] + "-" + hex(esi & 0xffff)[2:] + "-" + hex(esi >> 0x10)[2:]
     checkCode = checkCode.upper()
+    print(checkCode)
+
+def SeventySixthFrom160():
+    # 第一部分
+    print("First Serial Case:")
+    listCode = [0x54, 0x65, 0x48, 0x6E, 0x45, 0x64]
+    checkCode = ""
+    for code in listCode:
+        checkCode += chr(code)
+    print("Key:    " + checkCode)
+
+    # 第二部分
+    print("Second N/P Case:")
+    checkName = "1234" #helloEnter()
+    ebx = 0x94390304
+    esi = 0x84631221
+    checkCode = ""
+
+    for _char in checkName:
+        ordNum = ord(_char)
+        ebx ^= ordNum
+        esi ^= ebx
+        lastNum = ebx & 1
+        
+        if ebx % 2 == 1:
+            ebx = shift_arithmetic_right(ebx, 1) 
+            if ebx & 0x8fffffff:
+                ebx += lastNum
+            ebx ^= 0x1200311
+        else:
+            ebx = shift_arithmetic_right(ebx, 1) 
+            if ebx & 0x8fffffff:
+                ebx += lastNum
+
+    checkCode = hex(ebx & 0xffff)[2:] + "-" + hex(ebx >> 0x10)[2:] + "-" + hex(esi & 0xffff)[2:] + "-" + hex(esi >> 0x10)[2:]
+    checkCode = checkCode.upper()
+    print("Name:      " + checkName)
+    print("Serial:    " + checkCode)
+
+    # 第三部分
+    print("Third File Case:")
+    print("see task file 76.dat")
+
+def SeventySeventhFrom160():
+    mCode = 582935
+    checkCode = int(mCode / 0x78c)
+    checkCode *= 0x399
+    checkCode = checkCode << 0x11
+    checkCode &= 0xffffffff
+    checkCode = checkCode >> 9
+    checkCode = int(checkCode / 0xC)
     print(checkCode)
 
 def helloEnter():
@@ -1043,7 +1099,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    SeventyFifthFrom160()
+    SeventySixthFrom160()
 
 if __name__ == '__main__':
     main()
