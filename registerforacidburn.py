@@ -1087,6 +1087,20 @@ def SeventySeventhFrom160():
     checkCode = int(checkCode / 0xC)
     print(checkCode)
 
+def SeventyNinthFrom160():
+    checkCode = "VL - -3585902..46119.-208490."
+    print("Key:    " + checkCode)
+
+def EightythFrom160():
+    checkName = input("Please Enter Your Name!\n")
+    checkCompany = input("Please Enter Your Company!\n")
+    nCheckNum = int(0x7B / (len(checkName) + len(checkCompany)))
+    nCheckNum = nCheckNum << 5
+    nCheckNum -= 0x2c115c
+    nCheckNum += 0x872eb0
+    nCheckNum ^= 0x12
+    print("Key:    " + nCheckNum)
+    
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -1099,7 +1113,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    SeventySixthFrom160()
+    EightythFrom160()
 
 if __name__ == '__main__':
     main()
