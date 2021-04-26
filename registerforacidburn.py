@@ -4,6 +4,7 @@ import random
 import struct
 import string
 import datetime
+import math
 from commonForm import *
 
 def firstFrom160():
@@ -1100,6 +1101,23 @@ def EightythFrom160():
     nCheckNum += 0x872eb0
     nCheckNum ^= 0x12
     print("Key:    " + nCheckNum)
+
+def EightyFirstFrom160():
+    rsaE = 9901
+    rsaN = 12790891
+    strKey1 = "5666933"
+    strKey2 = "8483678"
+    for suNum1 in range(int(math.sqrt(rsaN)) + 1):
+        if suNum1 == 1 or suNum1 == 0:
+            continue
+
+        if(rsaN % suNum1 == 0):
+            break
+    fn = (suNum1 -1) * (rsaN/suNum1 - 1)
+    d = int(extend_Gcd(rsaE, fn))
+    m = fast_power_with_mod(8483678, d, rsaN)
+    print(m)
+
     
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1113,7 +1131,8 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    EightythFrom160()
+    EightyFirstFrom160()
+        
 
 if __name__ == '__main__':
     main()
