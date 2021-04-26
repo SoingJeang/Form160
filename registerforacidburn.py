@@ -1105,8 +1105,9 @@ def EightythFrom160():
 def EightyFirstFrom160():
     rsaE = 9901
     rsaN = 12790891
-    strKey1 = "5666933"
-    strKey2 = "8483678"
+    listKey = [8483678, 5666933]
+    checkCode = ""
+    
     for suNum1 in range(int(math.sqrt(rsaN)) + 1):
         if suNum1 == 1 or suNum1 == 0:
             continue
@@ -1115,9 +1116,13 @@ def EightyFirstFrom160():
             break
     fn = (suNum1 -1) * (rsaN/suNum1 - 1)
     d = int(extend_Gcd(rsaE, fn))
-    m = fast_power_with_mod(8483678, d, rsaN)
-    print(m)
+    for key in listKey:
+        m = fast_power_with_mod(key, d, rsaN)
+        checkCode += str(m)
+    print("Key:    " + checkCode)
 
+def EightySecondFrom160():
+    pass
     
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1131,7 +1136,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    EightyFirstFrom160()
+    EightySecondFrom160()
         
 
 if __name__ == '__main__':
