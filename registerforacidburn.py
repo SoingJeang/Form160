@@ -1153,17 +1153,17 @@ def EightySecondFrom160():
     for arg in listXorArg:
         argXORInfo ^= arg
 
-    checkName = "12345678912345678912" #helloEnter()
+    checkName = helloEnter()
     lenCheckName = len(checkName)
     listCheckName = list(checkName)
+    for _add in range(20 - lenCheckName):
+        listCheckName += [chr(0)]
+
     hexInfo = 0
     valueThird = 0
     valueFouth = 0
 
-    for index in range(20):
-        if lenCheckName - 1 <= index:
-            break
-        
+    for index in range(19):
         if index < 17:
             temp = ord(listCheckName[index+3]) << 0x18 | ord(listCheckName[index+2]) << 0x10 | ord(listCheckName[index+1]) << 0x8 | ord(listCheckName[index])
             hexInfo = (temp + hexInfo) & 0xffffffff
@@ -1180,7 +1180,7 @@ def EightySecondFrom160():
 
                 for valueFouth in range(10):
                     hexCheckFourth = hexCheckThird
-                    temp = (valueFouth + 0x30) << 0x18 | (valueThird + 0x30) << 0x10 | ord(listCheckName[index])
+                    temp = (valueFouth + 0x30) << 0x18 | (valueThird + 0x30) << 0x10 | ord(listCheckName[index+1])
                     hexCheckFourth = (temp + hexCheckFourth) & 0xffffffff
 
                     hexCheck = hexCheckFourth ^ argXORInfo
@@ -1188,11 +1188,11 @@ def EightySecondFrom160():
                     while temp >= 100:
                         temp = int(temp / 10)
                     if int(temp / 10) == valueThird and int(temp % 10) == valueFouth:
-                        hexInfo = hexCheck
+                        helloEnd(hexCheck)
+                        return
 
-    checkCode = hexInfo
-    print(checkCode)
-
+def EightyThirdFrom160():
+    pass
     
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
