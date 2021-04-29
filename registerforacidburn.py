@@ -1173,24 +1173,24 @@ def EightySecondFrom160():
             hexInfo = (temp + hexInfo) & 0xffffffff
 
         else:
-            hexCheck = hexInfo
             for valueThird in range(10):
+                hexCheckThird = hexInfo
                 temp = (valueThird + 0x30) << 0x18 | ord(listCheckName[index+1]) << 0x8 | ord(listCheckName[index])
-                hexCheck = (temp + hexCheck) & 0xffffffff
+                hexCheckThird = (temp + hexCheckThird) & 0xffffffff
 
                 for valueFouth in range(10):
+                    hexCheckFourth = hexCheckThird
                     temp = (valueFouth + 0x30) << 0x18 | (valueThird + 0x30) << 0x10 | ord(listCheckName[index])
-                    hexCheck = (temp + hexCheck) & 0xffffffff
+                    hexCheckFourth = (temp + hexCheckFourth) & 0xffffffff
 
+                    hexCheck = hexCheckFourth ^ argXORInfo
                     temp = hexCheck
-                    while hexCheck >= 100:
-                        hexCheck = int(hexCheck / 10)
-                    if int(hexCheck / 10) == valueThird and int(hexCheck % 10) == valueFouth:
-                        hexInfo = temp
-            
+                    while temp >= 100:
+                        temp = int(temp / 10)
+                    if int(temp / 10) == valueThird and int(temp % 10) == valueFouth:
+                        hexInfo = hexCheck
 
-
-    checkCode = hexInfo ^ argXORInfo
+    checkCode = hexInfo
     print(checkCode)
 
     
