@@ -1249,7 +1249,12 @@ def EightySixthFrom160():
     pass
 
 def EightySeventhFrom160():
-    pass
+    checkName = input("Please Enter Your Name!\n")
+    checkCompany = input("Please Enter Your Company!\n")
+    checkcode = str(len(checkCompany) * len(checkName) + 999081)
+    checkcode = checkcode + ":-)"
+    print(checkcode)
+
     
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
