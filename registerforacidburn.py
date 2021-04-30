@@ -1192,6 +1192,63 @@ def EightySecondFrom160():
                         return
 
 def EightyThirdFrom160():
+    checkName = "12345" # helloEnter()
+    checkCode = ""
+    
+    for _char in checkName:
+        checkCode += str(ord(_char))
+    checkCode = checkCode[1:]
+    helloEnd(checkCode)
+
+def EightyFourthFrom160():
+    nButton = random.randint(1,8)
+    # Easy Serial
+    if nButton == 1:
+        print("Button: " + "Easy Serial")
+        print("Key:    " + "23784628356267")
+    # Harder Serial
+    elif nButton == 2:
+        print("Button: " + "Harder Serial")
+        print("Key:    " + "ADUJSDMD8387079498SOPEMNSD")
+    # Name/Serial
+    elif nButton == 3:
+        checkName = helloEnter()
+        checkCode = ord(checkName[-1:]) * 13 + 161
+        checkCode = checkCode * checkCode * 154
+        
+        print("Button: " + "Name/Serial")
+        print("Key:    " + checkCode)
+
+    # Matrix
+    elif nButton == 4:
+        print("Button: " + "Matrix")
+        print("Key:    " + "1, 6, 7, 10, 20, 23")
+
+    # KeyFile
+    elif nButton == 5:
+        print("Button: " + "KeyFile")
+        print("FileName:" + "wk.dat")
+        print("Key:     " + "Easy, eh?")
+
+    # NAG
+    elif nButton == 6:
+        print("Button: " + "NAG")
+        print("Key:    " + "0x416A60, 0x40FCD0 set retn")
+
+    # Cripple
+    elif nButton == 7:
+        print("Button: " + "Cripple")
+        print("Key:    " + "Set resource")
+
+def EightyFifthFrom160():
+    checkName = helloEnter()
+    checkCode = ord(checkName[:1]) + 0x28193F53 - 0x224
+    helloEnd(checkCode)
+
+def EightySixthFrom160():
+    pass
+
+def EightySeventhFrom160():
     pass
     
 def helloEnter():
@@ -1206,7 +1263,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    EightySecondFrom160()
+    EightySeventhFrom160()
         
 
 if __name__ == '__main__':
