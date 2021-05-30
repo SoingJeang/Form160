@@ -1302,6 +1302,83 @@ def NintythFrom160():
     print("Register mask.key:     " + checkKeyCode)
     print("Register mask.exe:     " + checkExeCode)
 
+def CodeNum(cNum):
+    nNum = 0
+    CheckNum = cNum
+    while CheckNum >0:
+        nNum += 1
+        CheckNum /= 0x100
+    return nNum
+
+def checkCode(a, b, c):
+    print(a, b, c)
+    edi = 0
+    esi = 0
+    nLen = 0
+    if c != 0:
+        nLen = CodeNum(c) + 8
+    elif b != 0:
+        nLen = CodeNum(b) + 4
+    else:
+        nLen = CodeNum(a)
+    
+    if nLen == 0:
+        return False
+
+    EdiCheck = int((a + 0x12ab20 + c) * nLen) ^ (b + 0x48ff4ea) ^ (c - 0xbc309a - a)
+    EdiCheck |= 0x29359e2
+    EsiCheck = int((a - 0x127fb9 - c) / nLen) ^ (b - 0x48ff4ea) ^ (c + 0xbc0533 + a)
+    EsiCheck &= 0x29359e2
+
+    for _ in range(0xff):
+        for _ in range(0xff):
+            edi += EdiCheck
+            edi &= 0x15263748
+            esi += EsiCheck
+            esi |= 0x596a7b8c
+        edi += 0x911
+        esi -= 0x911
+    
+    if edi == 0x20021c51 and esi == 0x5b6b72dd:
+        print(a, b, c)
+        return True
+    return False
+
+def loopCheck(nlen, a, b, c):
+
+    if nlen == 0:
+        if(checkCode(a, b, c)):
+            return True
+    #check
+    elif nlen > 8:
+        for i in range(0x80):
+            loopCheck(nlen - 1, a, b, c * 0x100 + i)
+    elif nlen > 4:
+        for i in range(0x80):
+            loopCheck(nlen - 1, a, b * 0x100 + i, c)
+    else:
+        for i in range(0x80):
+            loopCheck(nlen - 1, a * 0x100 + i, b, c)
+
+
+
+def NintyFirstFrom160():
+    # last  edi = 0x20021c51
+    #       esi = 0x5b6b72dd
+    listInput = list("75642456")
+    listCheckLoop = []
+
+    # 12 位 最长
+    # a 为 0-4 b 5- 8 c 9 - 12
+    aIni = 0
+    bIni = 0
+    cIni = 0
+    loopCheck(12, 0, 0, 0)
+        
+    print(listInput)
+    print(listCheckLoop)
+
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -1314,7 +1391,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    NintythFrom160()
+    NintyFirstFrom160()
         
 
 if __name__ == '__main__':
