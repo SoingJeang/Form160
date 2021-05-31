@@ -1378,6 +1378,58 @@ def NintyFirstFrom160():
     print(listInput)
     print(listCheckLoop)
 
+def NintyThirdFrom160():
+    listFirstJusi = [0x17, 0x2A, 0x13, 0x08, 0x24, 0x76]
+    listSecondJust = [
+        0x02, 0x27, 0x06, 0x01, 0x3a, 0x1b, 0x0e, 0x25, 0x18, 0x05, 0x31, 0x13,
+        0x08, 0x3e, 0x02, 0x20, 0x38, 0x05, 0x17, 0x20, 0x17, 0x0c, 0x21, 0x11,
+        0x16, 0x2c
+        ]
+    listInitCode = ['C', 'i', 'A']
+    strSerial = ""
+    strMiddleCheck = ""
+    for i in range(len(listFirstJusi)):
+        strSerial += chr(listFirstJusi[i] ^ ord(listInitCode[i%3]))
+    strSerial += chr(0x2d)
+
+    checkName = "12345678" #input("Please Enter Your Name!\n")
+    if len(checkName) < 8:
+        return
+    listCheckName = list(checkName)
+    CheckCode = 1
+    nIndex = 0
+    nPreF = 0
+    for c in listCheckName:
+        if nIndex < 4:
+            if ord(c) & 1:
+                nPreF += int(numpy.power(2, 3-nIndex))
+        else:
+            CheckCode *= (ord(listCheckName[nIndex]) + nPreF)
+        nIndex += 1
+    
+    
+    for i in range(len(listSecondJust)):
+        strMiddleCheck += chr(listSecondJust[i] ^ ord(listInitCode[i%3]))
+
+    listCheckCode = list(str(CheckCode))
+    nIndex = 0
+    for c in listCheckCode:
+        checkc = int(c)
+        checkIndex = checkc + nIndex
+        strSerial += strMiddleCheck[checkIndex]
+        nIndex += 1
+
+    helloEnd(strSerial)
+
+    nFir = random.randint(10,99)
+    nSec = nFir - 9
+    nThi = 0x63 - nSec
+    nFou = 0x42 - nThi
+    edtCode = str(nFir) + chr(0x70) + chr(0x76) + str(nSec) + \
+                chr(0x4c) + chr(0x47) + str(nThi) + chr(0x74) + chr(0x58) + str(nFou)
+                
+    print("only Code is : " + edtCode)
+    
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1391,7 +1443,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    NintyFirstFrom160()
+    NintyThirdFrom160()
         
 
 if __name__ == '__main__':
