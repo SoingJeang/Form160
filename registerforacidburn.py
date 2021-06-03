@@ -5,6 +5,8 @@ import struct
 import string
 import datetime
 import math
+
+from numpy.testing._private.utils import check_free_memory
 from commonForm import *
 
 def firstFrom160():
@@ -1429,7 +1431,40 @@ def NintyThirdFrom160():
                 chr(0x4c) + chr(0x47) + str(nThi) + chr(0x74) + chr(0x58) + str(nFou)
                 
     print("only Code is : " + edtCode)
-    
+
+def NintySeventhFrom160():
+    checkName = input("Please Enter Your Name!\n")
+    if len(checkName) < 6:
+        return
+
+    listCheckName = list(checkName)
+    lenCheckName = len(checkName)
+    checkTotal = 0
+    nIndex = 0
+    for i in range(6):
+        checkTotal += ord(listCheckName[i])
+
+    checkTotal += lenCheckName
+    checkTotal *= 0x15c10e
+    checkTotal = int(checkTotal / 3)
+    checkTotal += 0x29a
+    checkTotal = int(checkTotal / 0x1388)
+    checkTotal *= lenCheckName
+    checkTotal = checkTotal * ord(listCheckName[2]) * ord(listCheckName[4])
+    while(checkTotal <= 0x5f5e0ff or checkTotal >= 0x3b9aca00):
+        checkTotal += lenCheckName
+        checkTotal = (checkTotal * ord(listCheckName[0])) & 0xffffffff 
+        if checkTotal & 0x80000000 > 0:
+            checkTotal = (checkTotal ^ 0xffffffff) + 1
+    helloEnd(checkTotal)
+
+    # deal esi
+    while(checkTotal <= 0x2710 or checkTotal >= 0x186a0):
+        if checkTotal >= 0x186a0:
+            checkTotal = int(checkTotal / lenCheckName)
+        if checkTotal <= 0x2710:
+            checkTotal *= checkTotal
+    print("scroll: " + str(checkTotal))
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1443,7 +1478,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    NintyThirdFrom160()
+    NintySeventhFrom160()
         
 
 if __name__ == '__main__':
