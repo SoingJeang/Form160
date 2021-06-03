@@ -13,7 +13,7 @@
 #include "NotePadOrigin.h"
 
 #define DLL_EXPORT __declspec(dllexport)
-#define ASM_DEF    __declspec(naked)
+#define ASM_DEF __declspec(naked)
 
 using namespace std;
 #pragma comment(lib, "Advapi32.lib")
@@ -21,8 +21,8 @@ using namespace std;
 
 #pragma data_seg("Share")
 HINSTANCE g_hInstance = NULL; // this instance of dll;
-HHOOK g_hHook = NULL;         // this global hook
-HWND g_hWnd = NULL;           // exe's Windows handle;
+HHOOK g_hHook = NULL;		  // this global hook
+HWND g_hWnd = NULL;			  // exe's Windows handle;
 #pragma data_seg()
 #pragma comment(linker, "/Section:Share,rws")
 
@@ -30,9 +30,9 @@ HANDLE g_hProcess = NULL;
 BOOL g_bInjected = FALSE;
 
 #define CODE_LENGTH 6
-BYTE g_bOrder[CODE_LENGTH] = { 0x68, 0, 0, 0, 0, 0xc3 };
+BYTE g_bOrder[CODE_LENGTH] = {0x68, 0, 0, 0, 0, 0xc3};
 // 6A 00 68 cc 50 40
-BYTE g_bOld_Order[CODE_LENGTH] = { 0, 0, 0, 0, 0, 0 };
+BYTE g_bOld_Order[CODE_LENGTH] = {0, 0, 0, 0, 0, 0};
 // BYTE g_bOld_Order[CODE_LENGTH] = {0x6A, 0, 0x68, 0xcc, 0x50, 0x40};
 DWORD g_InjectAddress = 0x4010C1;
 DWORD g_ExeCallFunctionAddr = 0x4010D7;
@@ -161,7 +161,7 @@ ASM_DEF void HookProc()
 		popad
 		popfd
 		jmp		[g_ExeCallFunctionAddr]
-    }
+	}
 }
 
 // 初始化时获得的 入口信息，拼接Shellcode
@@ -175,7 +175,7 @@ void Inject()
 	FARPROC pfnChangeTOMyAddre = (FARPROC)((DWORD)HookProc);
 	memcpy(g_bOrder + 1, &pfnChangeTOMyAddre, 4);
 
-	// get Old Code 
+	// get Old Code
 	// 属性打开
 	DWORD dwOldProtect;
 	if (!VirtualProtect((LPVOID)g_InjectAddress, CODE_LENGTH, PAGE_EXECUTE_READWRITE, &dwOldProtect))
@@ -219,7 +219,7 @@ void WriteMemory(LPVOID lpAddress, BYTE *pcode, int length)
 }
 
 PCHAR g_szRedigister = "Registered";
-unsigned int __stdcall SendDialogMeesageThread(void* pParam)
+unsigned int __stdcall SendDialogMeesageThread(void *pParam)
 {
 	while (TRUE)
 	{
@@ -232,18 +232,18 @@ unsigned int __stdcall SendDialogMeesageThread(void* pParam)
 		// MessageBoxA(NULL, szInfo, "xxx", MB_OK);
 		Sleep(1000);
 	}
-	
+
 	return 0;
 }
 
 // 钩子进来C级别入口
 void JudgeFunc(uintptr_t eax)
 {
-    HookOff();
-    // using code here
+	HookOff();
+	// using code here
 	unsigned int nThreadID;
 	_beginthreadex(NULL, 0, SendDialogMeesageThread, NULL, NULL, &nThreadID);
-    // BYTE 
+	// BYTE
 
-    HookOn();
+	HookOn();
 }
