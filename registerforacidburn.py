@@ -1466,6 +1466,19 @@ def NintySeventhFrom160():
             checkTotal *= checkTotal
     print("scroll: " + str(checkTotal))
 
+def NintyEighthFrom160():
+    # 1、delete annoy.txt
+    # form2 first passWord 123-456-789-000
+    # second 456-678
+    pass
+
+def HundredthFrom160():
+    # add esp, 0x10
+    pass
+
+def HUndredFirstFrom160():
+    pass
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
