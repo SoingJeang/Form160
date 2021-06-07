@@ -1479,6 +1479,13 @@ def HundredthFrom160():
 def HUndredFirstFrom160():
     pass
 
+def HundredSixstFrom160():
+    checkName = input("Please Enter Your Name!\n")
+    if len(checkName) < 4:
+        return
+    checkCode = checkName[::-1]
+    helloEnd(checkCode)
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -1491,7 +1498,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    NintySeventhFrom160()
+    HundredSixstFrom160()
         
 
 if __name__ == '__main__':
