@@ -1486,6 +1486,54 @@ def HundredSixstFrom160():
     checkCode = checkName[::-1]
     helloEnd(checkCode)
 
+def HundredEightFrom160():
+    print("Code: 12011982")
+
+def HundredNinthFrom160():
+    print("name: Registered User")
+    print("code: GFX-754-IER-954")
+
+def HundredTenthFrom160():
+    checkname = helloEnter()
+    if len(checkname) < 6:
+        return
+
+    checkCode = 0
+    for c in checkname:
+        checkCode = checkCode + 2 * ord(c)
+    checkCode = checkCode + 2 * len(checkname)
+    helloEnd(checkCode)
+
+def HundredEleventhFrom160():
+    mostlow = 1
+    secondlow = 1
+    mostIndex = 0
+    secondIndex = 0
+
+    for i in range(0x100000000):
+        if i == 0:
+            continue
+        nearpi = i / math.pi
+        nearpi = nearpi % 1
+        if nearpi > 0.0001:
+            continue
+
+        cakc = math.fabs(math.sin(i))
+        if (cakc < mostlow):
+            secondlow = mostlow
+            secondIndex = mostIndex
+            mostlow = cakc
+            mostIndex = i
+        elif (cakc < secondlow):
+            secondlow = cakc
+            secondIndex = i
+        print(i)
+        print(mostlow, mostIndex)
+        print(secondlow,secondIndex)
+
+    print("first:  411557987")
+    print("second: 245850922")
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -1498,7 +1546,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredSixstFrom160()
+    HundredEleventhFrom160()
         
 
 if __name__ == '__main__':
