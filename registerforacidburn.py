@@ -1534,6 +1534,62 @@ def HundredEleventhFrom160():
     print("first:  411557987")
     print("second: 245850922")
 
+def HundredTwelvethFrom160():
+    mySerial = "N54-FF43C24F-05S"
+    checkName = "12345678"#helloEnter()
+    checkCompany = "87654321"
+    checkSeiral = mySerial.replace("-", "")
+    nSerial = 0
+    nName = 0
+    nCompany = 0
+
+    for c in checkSeiral:
+        nSerial += ord(c)
+
+    for c in checkName:
+        nName += ord(c)
+
+    for c in checkCompany:
+        nCompany += ord(c)
+
+    checkCode = "34" + mySerial[4:7] + "-" + str(nSerial) + str(nName)[::-1] + "-" + checkCompany[4:7] + str(nCompany) + "-" + checkName[3:5]
+    helloEnd(checkCode)
+
+def HundredThirteenthFrom160():
+    print("password: ULTRADMA............................................................")
+
+def HundredTwentySecondFrom160():
+    nSerialInfo = 0xF42C34FF
+    nSerialxCode = 0
+    if nSerialInfo & 0x80000000 > 0:
+        nSerialxCode = (nSerialInfo ^ 0xffffffff) + 1
+    else:
+        nSerialxCode = nSerialInfo
+    
+    nInputxCode = 989
+    
+    nInputxCode = ((nInputxCode * 2 + 0x10) * 18) ^ 0x5
+    nSerialxCode = int(((nSerialxCode << 2)) / 3)
+    nSerialxCode = (nSerialxCode ^ 3) + 0x40
+
+    nInputxCode = (shift_arithmetic_right(nInputxCode * 6, 1) + 0xd) * 0x36
+    nInputxCode = (nInputxCode + circular_shift_left(nInputxCode, 5)) ^ 0x10
+    nSerialxCode = int(((nSerialxCode * 6)) / 5) ^ 0x25 ^ 0x27
+
+    nInputxCode = ((nInputxCode * 2 + 0xd) * 6 * 0x59) ^ 0x9 
+    nSerialxCode = ((nSerialxCode * 5) ^ 0x22) + 0x3
+
+    nInputxCode = ((shift_arithmetic_right(nInputxCode, 1) + 0x10) * 3)  ^ 0x6
+    nSerialxCode = (int(((nSerialxCode * 0x2b)) / 3) ^ 0x3) + 0x22
+
+    nInputxCode = (((shift_arithmetic_right(nInputxCode, 1) + 1) * 6) << 3) ^ 6
+    nSerialxCode = (shift_arithmetic_right(nSerialxCode * 3, 2) ^ 0x22) + 0x4
+
+    nSerialxCode = nSerialxCode * 3
+
+    nInputxCode = ((nInputxCode ^ 2) * 6)
+    nSerialxCode = (nSerialxCode << 2) + 0x4
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
@@ -1546,7 +1602,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredEleventhFrom160()
+    HundredTwentySecondFrom160()
         
 
 if __name__ == '__main__':

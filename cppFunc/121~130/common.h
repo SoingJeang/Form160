@@ -2,19 +2,22 @@
  * @Author: Soingjeang
  * @Date: 2021-03-10 19:35:54
  * @LastEditors: SoingJeang
- * @LastEditTime: 2021-06-08 18:11:29
- * @FilePath: \cppFunc\PEInject\common.h
+ * @LastEditTime: 2021-06-09 15:13:02
+ * @FilePath: \Form160\cppFunc\121~130\common.h
  */
 #pragma once 
 
 #include <string>
 #include <tchar.h>
-#include <windows.h>
 #include <stdio.h>
-#include <windows.h>
 #include <fstream>
 #include <future>
 #include <filesystem>
+#include "auto_tchar.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 std::string UnicodeToAnsi(std::wstring wstrUnicode);
 std::wstring AnsiToUnicode(std::string strAnsi);
