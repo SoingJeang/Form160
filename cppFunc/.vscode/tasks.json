@@ -71,7 +71,6 @@
 				"/Fe:",
 				"${fileDirname}\\${fileBasenameNoExtension}.dll",
 				"${file}",
-				"${fileDirname}\\NotePadOrigin.cpp"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
@@ -81,6 +80,28 @@
 			],
 			"group": "build",
 			"detail": "编译器: cl.exe"
-		}
+		},
+		{
+			"type": "shell",
+			"label": "clang++ build active file",
+			"command": "/usr/bin/clang++",
+			"args": [
+			  "-std=c++17",
+			  "-stdlib=libc++",
+			  "-g",
+			  "${file}",
+			  "-o",
+			  "${fileDirname}/${fileBasenameNoExtension}",
+			  "${fileDirname}//*.cpp"
+			],
+			"options": {
+			  "cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": ["$gcc"],
+			"group": {
+			  "kind": "build",
+			  "isDefault": true
+			}
+		  }
 	]
 }
