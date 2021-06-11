@@ -1613,6 +1613,46 @@ def HundredTwentySecondFrom160():
             print("Found: key:  " + str(i))
             break
 
+def HundredTwentyFourthFrom160():
+    #nLevel = int(input("Get level:   "))
+    nLevel = 3
+
+    if nLevel == 1:
+        print("reg: ")
+    elif nLevel == 2:
+        checkName = "12345678"#helloEnter()
+        strCheckCode = ""
+        lenName = len(checkName)
+        if lenName < 5:
+            return
+
+        nAddName = 0
+        listName = list(checkName)
+        listName.append('\0')
+        for i in range(lenName):
+            nAddName = (i+1) * (nAddName + ord(listName[i + 1]))
+
+        for i in range(lenName):
+            strCheckCode += chr(int(nAddName / ord(listName[i])) % 0xA + 0x30)
+        
+        helloEnd(strCheckCode)
+    elif nLevel == 3:
+        checkName = "12345678"#helloEnter()
+        strCheckCode = ""
+        lenName = len(checkName)
+        if lenName <= 5:
+            return
+        
+        listName = list(checkName)
+        nSib = 0
+        nCheckCode = -2128125115
+        for i in range(lenName):
+            nCheckCode = (~nSib) * (i + 1) * ((i << 8) ^ (ord(listName[i]) + nCheckCode))
+            nSib += lenName
+
+        print(nCheckCode)
+        
+
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1626,7 +1666,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredTwentySecondFrom160()
+    HundredTwentyFourthFrom160()
         
 
 if __name__ == '__main__':
