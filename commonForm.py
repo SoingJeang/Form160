@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-03-06 01:02:10
-LastEditTime: 2021-04-26 16:22:03
+LastEditTime: 2021-06-10 11:31:50
 LastEditors: SoingJeang
 Description: In User Settings Edit
 FilePath: \Form160\commonForm.py
@@ -133,3 +133,9 @@ def fast_power_with_mod(base, power, modNum):
         base = base * base % modNum
         power = int(power / 2)
     return result
+
+def rand(key):
+    retValue = key[0] * 0x343fd + 0x269ec3
+    key[0] = retValue
+    retValue = (retValue >> 0x10) & 0x7fff
+    return retValue

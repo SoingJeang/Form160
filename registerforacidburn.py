@@ -1590,6 +1590,30 @@ def HundredTwentySecondFrom160():
     nInputxCode = ((nInputxCode ^ 2) * 6)
     nSerialxCode = (nSerialxCode << 2) + 0x4
 
+def HundredTwentySecondFrom160():
+    strkey = "TSSFTMEZDPKS"
+    listKey = list(strkey)
+    for i in range(0xffffffff):
+        if i == 0:
+            continue
+
+        nKey = [i]
+        nIndex = 0
+        bFound = True
+        while(nIndex < len(strkey)):
+            c = rand(nKey) % 26
+            if c != ord(listKey[nIndex]) - 0x40 - 1:
+                bFound = False
+                break
+            nIndex += 1
+            if(nIndex > 5):
+                print(i)
+
+        if (bFound):
+            print("Found: key:  " + str(i))
+            break
+
+
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
     print("checksName: \t" + checkname)
