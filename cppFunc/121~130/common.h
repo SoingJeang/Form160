@@ -2,13 +2,12 @@
  * @Author: Soingjeang
  * @Date: 2021-03-10 19:35:54
  * @LastEditors: SoingJeang
- * @LastEditTime: 2021-06-09 15:13:02
- * @FilePath: \Form160\cppFunc\121~130\common.h
+ * @LastEditTime: 2021-06-14 14:10:15
+ * @FilePath: /cppFunc/121~130/common.h
  */
 #pragma once 
 
 #include <string>
-#include <tchar.h>
 #include <stdio.h>
 #include <fstream>
 #include <future>

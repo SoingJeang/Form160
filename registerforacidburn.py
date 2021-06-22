@@ -1613,9 +1613,59 @@ def HundredTwentySecondFrom160():
             print("Found: key:  " + str(i))
             break
 
-def HundredTwentyFourthFrom160():
+def nameAdd(strname, lenName, addNum):
+    nRet = 1
+    listlocalSerial = [
+            'h', '1', '4', 'M', 'l', '0', 'x', '\n',
+            '7', 'k', 'C', 'H', 'w', 'X', 'B', 'z', 'H', '\t', 
+            'G', '8', 'i', 'N', '9', '+', 'w', 'b', '5', 'V', 'H', 'Z'
+        ]
+    nlocalLen = len(listlocalSerial)
+    halfLocalLen = int(nlocalLen / 2)
+    nOut = 1
+    for cCharactor in strname:
+        nChara = ord(cCharactor)
+        nPreBackadd = nChara * nRet
+        for index in range(halfLocalLen):
+            v1 = ord(listlocalSerial[nlocalLen - index - 1]) - nChara % (index + 1)
+            v2 = nPreBackadd + ord(listlocalSerial[index])
+            nPreBackadd = v1 + v2
+        nRet = addNum ^ (((nOut * nPreBackadd) << 8) & 0xffffffff)
+        nOut += 1
+    return nRet
+
+def GetFilePos(strName, strCompany, listPos):
+    nameLen = len(strName)
+    companyLen = len(strCompany)
+    listName = list(strName)
+    listCompany = list(strCompany)
+    nLenLoop = 1
+    for i in range(nameLen):
+        nLenLoop = nLenLoop * (i + ord(listName[i]) - companyLen)
+        if (nLenLoop > 0):
+            nLenLoop &= 0xffffffff
+    
+    nFileLenth = listPos[0]
+    nReadSize = ((nFileLenth << 8) ^ nLenLoop) & 0xffffffff
+    nTemp = nFileLenth >> 1
+
+    if (nReadSize % nTemp == 0):
+        nReadSize ^= 0xfffffff
+
+    # if nReadSize & 0x8fffffff:
+    #     nReadSize = -1 * ((nReadSize ^ 0xfffffff) + 1)
+        
+    result = nReadSize % nTemp
+    listPos.append(result)
+    listPos[0] = (nFileLenth - result) >> 1
+
+def ReadFileAndChangeMemory(pos, size):
+    pass
+    
+
+def HundredTwentyFifthFrom160():
     #nLevel = int(input("Get level:   "))
-    nLevel = 3
+    nLevel = 5
 
     if nLevel == 1:
         print("reg: ")
@@ -1636,6 +1686,7 @@ def HundredTwentyFourthFrom160():
             strCheckCode += chr(int(nAddName / ord(listName[i])) % 0xA + 0x30)
         
         helloEnd(strCheckCode)
+
     elif nLevel == 3:
         checkName = "12345678"#helloEnter()
         strCheckCode = ""
@@ -1651,6 +1702,32 @@ def HundredTwentyFourthFrom160():
             nSib += lenName
 
         print(nCheckCode)
+
+    elif nLevel == 4:
+        checkName = helloEnter()
+        strCheckCode = ""
+        lenName = len(checkName)
+
+        nBackDec = 0
+        nBackHex = 0
+        for i in range(lenName):
+            if i % 2 == 0:
+                nBackHex = nameAdd(checkName, lenName, i + nBackDec)
+            else:
+                nBackDec = nameAdd(checkName, lenName, i + nBackHex)
+
+        strCheckCode = str(nBackDec) + '-' + hex(nBackHex)[2:].upper()
+        helloEnd(strCheckCode[::-1])
+
+    elif nLevel == 5:
+        checkName = "12345678910" #helloEnter()
+        checkCompany = "companycom"
+        lisFile = [ 0x4a00 ]
+        GetFilePos(checkName, checkCompany, lisFile)
+        print(lisFile)
+
+    elif nLevel == 6:
+        pass
         
 
 
@@ -1666,7 +1743,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredTwentyFourthFrom160()
+    HundredTwentyFifthFrom160()
         
 
 if __name__ == '__main__':
