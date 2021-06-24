@@ -610,7 +610,7 @@ def fortythSeventhFrom160():
     listOut = []
 
     checkName = helloEnter()
-    if(len(checkname) > 0xf):
+    if(len(checkName) > 0xf):
         print("name not than 13 code")
         return
 
@@ -1618,7 +1618,7 @@ def HundredTwentyFourthFrom160():
     nLevel = 3
 
     if nLevel == 1:
-        print("reg: ")
+        print("reg:  qJT62aWfviq0P57JGs2FelQkX")
     elif nLevel == 2:
         checkName = "12345678"#helloEnter()
         strCheckCode = ""
@@ -1648,10 +1648,30 @@ def HundredTwentyFourthFrom160():
         nCheckCode = -2128125115
         for i in range(lenName):
             nCheckCode = (~nSib) * (i + 1) * ((i << 8) ^ (ord(listName[i]) + nCheckCode))
+            if nCheckCode > 0:
+                nCheckCode = nCheckCode & 0xffffffff
+            else:
+                nCheckCode = -1 * (-1 * nCheckCode) & 0xffffffff
             nSib += lenName
 
         print(nCheckCode)
-        
+
+def HundredTwentySixthFrom160():
+    checkName = helloEnter()
+    listCheckName = list(checkName)
+    lenName = len(checkName)
+
+    nLastAsc = ord(listCheckName[lenName - 1]) * lenName
+    nAddName = 0
+    for c in checkName:
+        nAddName = nAddName + nLastAsc * ord(c)
+    nAddName ^= 0x10
+    nNamePre = nAddName ^ 0x6F
+    nCheckCode = nNamePre + 47391895
+    if nCheckCode % 10 != 8:
+        nCheckCode = nCheckCode - nCheckCode % 10 + 18
+
+    helloEnd(str(nNamePre) + "-" + str(nCheckCode))
 
 
 def helloEnter():
@@ -1666,7 +1686,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredTwentyFourthFrom160()
+    HundredTwentySixthFrom160()
         
 
 if __name__ == '__main__':
