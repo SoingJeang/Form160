@@ -92,7 +92,7 @@
 			  "${file}",
 			  "-o",
 			  "${fileDirname}/${fileBasenameNoExtension}",
-			  "${fileDirname}//*.cpp"
+			//   "${fileDirname}//*.cpp"
 			],
 			"options": {
 			  "cwd": "${workspaceFolder}"
