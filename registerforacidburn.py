@@ -1741,6 +1741,7 @@ def HundredTwentySixthFrom160():
     nAddName = 0
     for c in checkName:
         nAddName = nAddName + nLastAsc * ord(c)
+
     nAddName ^= 0x10
     nNamePre = nAddName ^ 0x6F
     nCheckCode = nNamePre + 47391895
@@ -1748,6 +1749,46 @@ def HundredTwentySixthFrom160():
         nCheckCode = nCheckCode - nCheckCode % 10 + 18
 
     helloEnd(str(nNamePre) + "-" + str(nCheckCode))
+
+
+def HundredTwentySeventhFrom160():
+    checkName = helloEnter()
+    listCheckName = list(checkName)
+    nNameAdd = 0
+    for c in checkName:
+        nNameAdd += ord(c)
+    nNameAdd += 0xA
+    nNameAdd ^= 0x5e
+    nNameAdd *= 238
+    strNameAdd = str(nNameAdd).zfill(10)
+    strCheckCode = ""
+
+    nIndex =0
+    for c in strNameAdd:
+        strCheckCode += hex(nIndex ^ (nIndex*64) ^ ord(c))[2:].upper()
+        nIndex+=1
+    helloEnd(strCheckCode)
+
+    
+def HundredTwentyEighthFrom160():
+    checkName = helloEnter()
+    nNameDeal = ord(checkName[0:1].upper()) * len(checkName)
+    nNameDeal = (nNameDeal << 0xc) + 0x3930e
+    nCheckCode = nNameDeal - 0x14
+    helloEnd(nCheckCode)
+
+
+def HundredTwentyNinethFrom160():
+    checkName = helloEnter()
+    nInxSpec = 0
+    nAdd = 0
+    for i in checkName:
+        nInxSpec &= 0x00 
+        nInxSpec += ord(checkName)
+        nInxSpec = circular_shift_left(nInxSpec, 8)
+        nAdd += nInxSpec
+        nAdd &= 0xffffffff
+    
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1761,7 +1802,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredTwentySixthFrom160()
+    HundredTwentyNinethFrom160()
         
 
 if __name__ == '__main__':
