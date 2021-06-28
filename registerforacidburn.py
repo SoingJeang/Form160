@@ -1779,16 +1779,78 @@ def HundredTwentyEighthFrom160():
 
 
 def HundredTwentyNinethFrom160():
-    checkName = helloEnter()
+    checkName = "123"#helloEnter()
     nInxSpec = 0
     nAdd = 0
-    for i in checkName:
+    #answer = 8DCAF368
+    # code stright
+    for c in checkName:
         nInxSpec &= 0x00 
-        nInxSpec += ord(checkName)
+        nInxSpec += ord(c)
         nInxSpec = circular_shift_left(nInxSpec, 8)
         nAdd += nInxSpec
         nAdd &= 0xffffffff
     
+    # reverse 
+    nAnswer = 0x8DCAF368
+    nZero = nAnswer & 0xff
+    nFirst = (shift_arithmetic_right(nAnswer, 24) & 0xff) - (nAnswer & 0xff)
+    nSecond = (shift_arithmetic_right(nAnswer, 16) & 0xff) - (shift_arithmetic_right(nAnswer, 24) & 0xff)
+    nThird = (shift_arithmetic_right(nAnswer, 8) & 0xff) - (shift_arithmetic_right(nAnswer, 16) & 0xff)
+    strCheckCode = chr(nZero) + chr(nFirst) +  chr(nSecond) + chr(nThird)
+    helloEnd(strCheckCode)
+
+
+def HundredThirtyFirstFrom160():
+    print("Serial: 3Qr53pX")
+
+
+def HundredThirtySecondFrom160():
+    listPassCode = [
+        0x71, 0x18, 0x59, 0x1b, 0x79, 0x42, 0x45, 0x4c
+    ]
+    nXorKey = 0
+    for coXOr in listPassCode:
+        nXorKey ^= coXOr
+    
+    strCheckCode = ""
+    for cxXor in listPassCode:
+        strCheckCode += chr(cxXor ^ 0x32 ^ nXorKey)
+
+    helloEnd(strCheckCode)
+
+
+def HundredThirtyFifthFrom160():
+    checkName = helloEnter()
+    strCheckCode = ""
+    for c in checkName:
+        strCheckCode = str(ord(c))[-2:] + strCheckCode
+    helloEnd(strCheckCode)
+
+def HundredThirtySixthFrom160():
+    checkName = "kedaya"#helloEnter()
+    lenCheckName = len(checkName)
+    listCheckName = list(checkName)
+    strModCheck = "31415926535897932384"
+    listModeCheck = list(strModCheck)
+    strCheckCode = ""
+    
+    for i in range(lenCheckName):
+        singleCode = 2 * (ord(listCheckName[i]) % ord(listModeCheck[i]))
+        if(singleCode > 123):
+            singleCode -= 26
+        if(singleCode < 65):
+            singleCode = 130 - singleCode
+        if(singleCode > 91 and singleCode < 97):
+            singleCode = singleCode % 10 + 48
+        strCheckCode += chr(singleCode)
+
+    helloEnd(strCheckCode)
+
+
+def HundredThirtySeventhFrom160():
+    pass
+
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1802,7 +1864,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredTwentyNinethFrom160()
+    HundredThirtySeventhFrom160()
         
 
 if __name__ == '__main__':
