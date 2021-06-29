@@ -1753,7 +1753,6 @@ def HundredTwentySixthFrom160():
 
 def HundredTwentySeventhFrom160():
     checkName = helloEnter()
-    listCheckName = list(checkName)
     nNameAdd = 0
     for c in checkName:
         nNameAdd += ord(c)
@@ -1849,8 +1848,65 @@ def HundredThirtySixthFrom160():
 
 
 def HundredThirtySeventhFrom160():
-    pass
+    print("Serial: SSSSSS")
 
+
+def HundredThirtyNinethFrom160():
+    nFixNum = 0x20A9
+    with open("138.dat", 'wb') as fp:
+        while(nFixNum > 0xff):
+            nFixNum -= 0xff
+            byte = struct.pack('B', 0xff)
+            fp.write(byte)
+        byte = struct.pack('B', nFixNum)
+        fp.write(byte)
+        byte = struct.pack('B', 0x00)
+        fp.write(byte)
+
+def HundredFortythFrom160():
+    strfile = 'Runtime Error: 12FF:024'
+    with open("139.dat", 'w') as fp:
+        fp.write(strfile)
+    
+    checkName = "kedaya"#helloEnter()
+    nCheckCode = 0
+    nSunPre = 0
+    nIndex = 1
+    for c in checkName:
+        nSunPre -= ord(c)
+        if nSunPre < 0:
+            nSunPre += 0x100
+        nSunPre += nIndex
+        nCheckCode += nSunPre
+        nIndex += 1
+    while nCheckCode < 0x438d:
+        nCheckCode += 0x45e6
+
+    checkCode = str(nCheckCode)[0:2] + "-" + str(nCheckCode)[2:3] + "-" + str(nCheckCode)[3:]
+    helloEnd(checkCode)
+
+def HundredFortythThirdFrom160():
+    print("UnlockKey: CrackMe [id:9] by tC... .")
+
+def HundredFortythSixthFrom160():
+    checkArr = [
+        0x3a, 0xd9, 0xc4, 0xc9, 0xba, 0xbf, 
+        0xde, 0x7d, 0x44, 0xcf, 0xe2, 0xd9,
+        0xEA, 0x49, 0xD2, 0xDD, 0xDE, 0x8F
+    ]
+    strCheckCode = ""
+
+    checkArr = checkArr[::-1]
+    nIndex = 0
+    for nIndex in range(len(checkArr)):
+        nTemp = checkArr[nIndex]+ nIndex + 1 - 8
+        nTemp = int (nTemp / 2)
+        nTemp ^= 3
+        checkArr[nIndex] = nTemp
+        strCheckCode += chr(nTemp)
+        
+    print(strCheckCode)
+        
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1864,7 +1920,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredThirtySeventhFrom160()
+    HundredFortythSixthFrom160()
         
 
 if __name__ == '__main__':
