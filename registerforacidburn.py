@@ -5,6 +5,7 @@ import struct
 import string
 import datetime
 import math
+import hashlib
 
 from numpy.testing._private.utils import check_free_memory
 from commonForm import *
@@ -1850,10 +1851,9 @@ def HundredThirtySixthFrom160():
 def HundredThirtySeventhFrom160():
     print("Serial: SSSSSS")
 
-
 def HundredThirtyNinethFrom160():
     nFixNum = 0x20A9
-    with open("138.dat", 'wb') as fp:
+    with open("139.dat", 'wb') as fp:
         while(nFixNum > 0xff):
             nFixNum -= 0xff
             byte = struct.pack('B', 0xff)
@@ -1865,7 +1865,7 @@ def HundredThirtyNinethFrom160():
 
 def HundredFortythFrom160():
     strfile = 'Runtime Error: 12FF:024'
-    with open("139.dat", 'w') as fp:
+    with open("140.dat", 'w') as fp:
         fp.write(strfile)
     
     checkName = "kedaya"#helloEnter()
@@ -1907,6 +1907,190 @@ def HundredFortythSixthFrom160():
         
     print(strCheckCode)
         
+def HundredFortythSeventhFrom160():
+    checkName = "kedaya"#helloEnter()
+    checkSerial = ""
+    checkReg = ""
+
+    for c in checkName:
+        checkSerial += chr(ord(c) + 3)
+        checkReg += chr(ord(c) - 3)
+    
+    print(checkSerial)
+    print(checkReg)
+
+def HundredFortythEighthFrom160():
+    nLicense = 2 # single
+    if nLicense == 1:
+        checkName = "kedaya"#helloEnter()
+        checkCode = checkName[::-1]
+        helloEnd(checkCode)
+    else:
+        checkName = "abcde"#helloEnter()
+        checkName = checkName[::-1]
+        checkCode = ""
+        for c in checkName:
+            checkCode += chr(ord(c) + 8)
+        helloEnd(checkCode)
+
+def HundredFiftySecondFrom160():
+    hMd5 = hashlib.md5()
+    strMd5Init = 0x12345678#9ABCDEF0#FEDCBA9876543210
+    byte = struct.pack('IIII', 0x12345678, 0x9ABCDEF0, 0xFEDCBA98, 0x76543210)
+    
+    checkName = "solly"
+    while len(checkName) < 0x40:
+        checkName += checkName
+    while len(checkName) > 0x40:
+        checkName = checkName[:-1]
+    checkName = chr(0) + checkName[:-1]
+    hMd5.update(checkName.encode(encoding='UTF-8'))
+    strMd5 = hMd5.hexdigest()
+    nCheckFirst = int(strMd5[0:8], 16) + int(strMd5[24:], 16) - int(strMd5[8:16], 16) - int(strMd5[16:24], 16)
+    print(nCheckFirst)
+    pass
+
+def HundredFiftyThirdFrom160():
+    print("key: aa70068")
+
+def HundredFiftyFourthFrom160():
+    checkMidte = "PhroZenQ"
+    listCheckMidte = list(checkMidte)
+    checkName = "aaaa"##helloEnter()
+    nIndex = 0
+    while len(checkName) < 8:
+        checkName += str(nIndex)
+        nIndex += 1
+
+    strMiddle = ""
+    listCheckName = list(checkName)
+    for i in range(4):
+        nTemp = ord(listCheckName[i]) + ord(listCheckName[7-i])
+        listCheckName[i] = nTemp#nTemp^ord(listCheckMidte[i])
+        #listCheckName[i + 4] = nTemp^ord(listCheckMidte[i+4])
+
+    listCheckName[4:8] = listCheckName[0:4]
+    for i in range(8):
+        listCheckName[i] ^= ord(listCheckMidte[i])
+
+    nRol = listCheckName[0]
+    nXor = listCheckName[5] + listCheckName[6]*0x100 + listCheckName[7]*0x10000
+    nAA = listCheckName[1] + listCheckName[2]*0x100 + listCheckName[3]*0x10000 + listCheckName[4]*0x1000000
+
+    for i in range(32):
+        nTemp = circular_shift_right(nAA, i)
+        if(nTemp % 32 != i):
+            continue
+        
+        nTemp = nTemp ^ nXor
+        nCheckCode = circular_shift_right(nTemp, nRol)
+        print(nCheckCode)
+    #ror(nAA, (nXor ^ rol(nPass, nRol))) == nXor ^ rol(nPass, nRol)
+
+def HundredFiftySixthFrom160():
+    strfile = '3867771216'
+    with open("crack.dat", 'w') as fp:
+        fp.write(strfile)
+        
+    checkName = "aaaa"#helloEnter()
+    checkOrga = "bbb"#helloEnter()
+    listCheckName = list(checkName)
+    listOrga = list(checkOrga)
+
+    if len(checkOrga) > len(checkName):
+        return 
+
+    nAddAll = 0
+    for index in range(len(checkOrga)):
+        nAddAll += ord(listCheckName[index]) * ord(listOrga[index])
+
+    helloEnd(nAddAll) 
+
+def HundredFiftySeventhFrom160():
+    strfile = '3624563226'
+    with open("crack.dat", 'w') as fp:
+        fp.write(strfile)
+
+    checkName = "aaaa"#helloEnter()
+    checkOrga = "1234"#helloEnter()
+    if(len(checkName) < 3 or len(checkOrga) <3):
+        return
+    
+    nCheckCode = 0
+    nNameFirst = ord(checkName[0:1])
+    nOrgaFirst = ord(checkOrga[0:1])
+    while nNameFirst < 0x100:
+        nTempName = nNameFirst
+        nTempOrga = nOrgaFirst
+        if nNameFirst & 0x80:
+            nTempName = 0xffffff00 ^ nTempName
+        if nOrgaFirst & 0x80:
+            nTempOrga = 0xffffff00 ^ nTempOrga
+
+        nCheckCode += (getIntFromUnint(nTempName) * getIntFromUnint(nTempOrga))
+        nNameFirst += 1
+        nOrgaFirst += 1
+
+        nOrgaFirst &= 0xff
+    helloEnd(nCheckCode)
+
+def HundredFiftyEighthFrom160():
+    arrMonthKey = [
+        0, 0x39, 0x38, 0x30, 0x33, 0x44, 0x32, 0x46, 0x37, 0x34, 0x30, 0x34, 0x45
+    ]
+    arrDayKey = [
+        0, 0x46, 0x33, 0x41, 0x34, 0x42, 0x46, 0x33, 0x42, 0x30, 0x35,
+        0x30, 0x33, 0x46, 0x42, 0x38, 0x42, 0x43, 0x42, 0x34, 0x46,
+        0x34, 0x39, 0x38, 0x30, 0x33, 0x44, 0x35, 0x43, 0x37, 0x34, 0x30
+    ]
+    strMul7020 = "Etn5Pnc5AXi1DFlkYqnujsXNmvHdbcrqOoT8aaV5DkaymMRkPkoQ."
+    strMul7058 = "fQObVwNOankJ5skqJvae3Ae5jdoETu5n02J6Ez85430PNSDAPjDrYgFaze9VDRjq"
+    checkName = "aaaa"#helloEnter()
+    checkGroup = "bbbb"#helloEnter()
+
+    mMonth = datetime.date.today().month
+    mDay = datetime.date.today().day
+    nPreCodeFirst = arrMonthKey[mMonth] * arrDayKey[mDay]
+
+    nPreCodeSecond = 0
+    for index in range(len(checkName)):
+        if index == 0:
+            continue
+        nPreCodeSecond += index * ord(strMul7020[index-1:index]) * ord(strMul7058[index-1:index]) * ord(checkName[index-1:index])
+
+    for index in range(len(checkGroup)):
+        if index == 0:
+            continue
+        nPreCodeSecond += index * ord(strMul7020[index-1:index]) * ord(strMul7058[index-1:index]) * ord(checkGroup[index-1:index])
+    print(nPreCodeFirst + nPreCodeSecond)
+
+def HundredFiftyNinethFrom160():
+    arrSerial = [
+        0,0,0,0,0,0,0,0,0,0
+    ]
+    arrSerial[0] = chr(0x54 ^ 29)
+    arrSerial[1] = chr(0x49 ^ 13)
+    arrSerial[2] = chr(0x44 ^ 7)
+    arrSerial[3] = chr(0x39 ^ 13)
+
+    arrSerial[6] = chr(0x54 ^ 17)
+    arrSerial[7] = chr(0x52 ^ 6)
+    arrSerial[8] = chr(0x45 ^ 7)
+
+    arrSerial[4] = chr(0x39 ^ 9)
+    arrSerial[9] = chr(0x53 ^ 31)
+    
+    mYear = datetime.date.today().year
+    mMonth = datetime.date.today().month
+    mDay = datetime.date.today().day
+    mHour = datetime.datetime.now().hour
+    mMin = datetime.datetime.now().minute
+    checkLastFour = mMin * mHour + mDay * mMonth + mYear
+
+    print(arrSerial)
+
+def HundredSixtyFrom160():
+    pass
 
 def helloEnter():
     checkname = input("Please Enter Your Name!\n")
@@ -1920,8 +2104,7 @@ def helloEnd(sierail):
     print("\n")
 
 def main():
-    HundredFortythSixthFrom160()
-        
+    HundredFiftyNinethFrom160()
 
 if __name__ == '__main__':
     main()

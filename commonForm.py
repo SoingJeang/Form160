@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-03-06 01:02:10
-LastEditTime: 2021-06-10 11:31:50
+LastEditTime: 2021-07-01 14:22:41
 LastEditors: SoingJeang
 Description: In User Settings Edit
 FilePath: \Form160\commonForm.py
@@ -139,3 +139,10 @@ def rand(key):
     key[0] = retValue
     retValue = (retValue >> 0x10) & 0x7fff
     return retValue
+
+def getIntFromUnint(nUnint):
+    if(nUnint & 0x80000000):
+        nUnint ^= 0xffffffff
+        return -1 *(nUnint + 1)
+    else:
+        return nUnint
